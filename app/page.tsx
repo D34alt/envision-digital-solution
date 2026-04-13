@@ -1,19 +1,40 @@
 import Image from "next/image";
 
 import CursorGlow from "@/components/cursor-glow";
+import {
+  AlertTriangle,
+  ArrowRight,
+  BarChart3,
+  CircleCheckBig,
+  Compass,
+  Crosshair,
+  Gauge,
+  Mail,
+  Map,
+  Megaphone,
+  MousePointerClick,
+  Network,
+  Rocket,
+  Search,
+  Share2,
+  Workflow,
+} from "lucide-react";
 
 const frictions = [
   {
+    icon: AlertTriangle,
     title: "You are getting traffic, but not enough qualified leads",
     description:
       "Clicks alone do not grow a business. Without a full-funnel plan, attention rarely becomes revenue.",
   },
   {
+    icon: Network,
     title: "Your marketing channels are working in silos",
     description:
       "Paid ads, SEO, social and email should amplify each other, not compete for budget without direction.",
   },
   {
+    icon: BarChart3,
     title: "Reporting is noisy and hard to action",
     description:
       "When data is unclear, decisions slow down. Growth comes from simple, measurable priorities each week.",
@@ -22,26 +43,31 @@ const frictions = [
 
 const servicePillars = [
   {
+    icon: Megaphone,
     title: "Paid Ads Management",
     description:
       "Google and Meta campaigns designed around commercial intent, not vanity metrics.",
   },
   {
+    icon: Search,
     title: "SEO and Content Strategy",
     description:
       "Search visibility built through targeted pages and content mapped to buyer intent.",
   },
   {
+    icon: Share2,
     title: "Social Media Growth",
     description:
       "Brand-led social systems that build trust and keep your business consistently top of mind.",
   },
   {
+    icon: MousePointerClick,
     title: "Conversion Journey Optimisation",
     description:
       "Landing pages and website journeys improved to turn attention into enquiries.",
   },
   {
+    icon: Mail,
     title: "Email and CRM Nurture",
     description:
       "Automated nurture journeys that warm up leads and move prospects towards decision.",
@@ -50,21 +76,25 @@ const servicePillars = [
 
 const frameworkSteps = [
   {
+    icon: Compass,
     title: "Discover and Diagnose",
     description:
       "We audit your market, funnel and channels to identify where growth is leaking.",
   },
   {
+    icon: Map,
     title: "Build the Growth Plan",
     description:
       "We define channel roles, messaging angles, and a practical 90-day action roadmap.",
   },
   {
+    icon: Rocket,
     title: "Launch and Coordinate",
     description:
       "We execute campaigns across the right channels with one clear strategy and creative direction.",
   },
   {
+    icon: Gauge,
     title: "Optimise Weekly",
     description:
       "We review results, reallocate effort, and refine creative and copy to improve performance over time.",
@@ -73,16 +103,19 @@ const frameworkSteps = [
 
 const differentiators = [
   {
+    icon: Crosshair,
     title: "Strategy before spend",
     description:
       "Every campaign starts with positioning and intent mapping, so budget follows a clear commercial purpose.",
   },
   {
+    icon: Workflow,
     title: "One connected growth system",
     description:
       "We design channels to work together, creating compounding momentum instead of isolated activity.",
   },
   {
+    icon: CircleCheckBig,
     title: "Clarity-led reporting",
     description:
       "You get plain-English updates focused on actions, priorities and expected impact.",
@@ -115,9 +148,21 @@ const faqs = [
 ];
 
 const stats = [
-  { value: "Full-Funnel", label: "Awareness to enquiry strategy" },
-  { value: "Weekly", label: "Optimisation and reporting cadence" },
-  { value: "Multi-Channel", label: "SEO, paid, social and nurture" },
+  {
+    icon: Compass,
+    value: "Full-Funnel",
+    label: "Awareness to enquiry strategy",
+  },
+  {
+    icon: Gauge,
+    value: "Weekly",
+    label: "Optimisation and reporting cadence",
+  },
+  {
+    icon: Network,
+    value: "Multi-Channel",
+    label: "SEO, paid, social and nurture",
+  },
 ];
 
 const panelClass = "rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur";
@@ -162,9 +207,10 @@ export default function Home() {
           </nav>
           <a
             href="#contact"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
           >
             Book a Strategy Call
+            <ArrowRight className="h-4 w-4" />
           </a>
         </header>
 
@@ -194,9 +240,10 @@ export default function Home() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href="#services"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
                 Explore Services
+                <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="#framework"
@@ -229,19 +276,24 @@ export default function Home() {
               ))}
             </ol>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-slate-950/70 p-4"
-                >
-                  <p className="text-lg font-semibold text-white sm:text-xl">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-400 sm:text-sm">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+              {stats.map((stat) => {
+                const Icon = stat.icon;
+
+                return (
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl border border-white/10 bg-slate-950/70 p-4"
+                  >
+                    <Icon className="h-4 w-4 text-cyan-300" />
+                    <p className="mt-3 text-lg font-semibold text-white sm:text-xl">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-400 sm:text-sm">
+                      {stat.label}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </aside>
         </section>
@@ -254,14 +306,21 @@ export default function Home() {
             </h2>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {frictions.map((item) => (
-              <article key={item.title} className={cardClass}>
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  {item.description}
-                </p>
-              </article>
-            ))}
+            {frictions.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article key={item.title} className={cardClass}>
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                    {item.description}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -273,16 +332,23 @@ export default function Home() {
             </h2>
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {servicePillars.map((service) => (
-              <article key={service.title} className={cardClass}>
-                <h3 className="text-lg font-semibold text-white">
-                  {service.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  {service.description}
-                </p>
-              </article>
-            ))}
+            {servicePillars.map((service) => {
+              const Icon = service.icon;
+
+              return (
+                <article key={service.title} className={cardClass}>
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                    {service.description}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -294,19 +360,26 @@ export default function Home() {
             </h2>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {frameworkSteps.map((step, index) => (
-              <article key={step.title} className={cardClass}>
-                <p className="text-xs font-medium uppercase tracking-[0.14em] text-cyan-300">
-                  {`Step ${index + 1}`}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  {step.description}
-                </p>
-              </article>
-            ))}
+            {frameworkSteps.map((step, index) => {
+              const Icon = step.icon;
+
+              return (
+                <article key={step.title} className={cardClass}>
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <p className="mt-4 text-xs font-medium uppercase tracking-[0.14em] text-cyan-300">
+                    {`Step ${index + 1}`}
+                  </p>
+                  <h3 className="mt-3 text-lg font-semibold text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                    {step.description}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -318,14 +391,21 @@ export default function Home() {
             </h2>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {differentiators.map((item) => (
-              <article key={item.title} className={cardClass}>
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  {item.description}
-                </p>
-              </article>
-            ))}
+            {differentiators.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article key={item.title} className={cardClass}>
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                    {item.description}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -339,7 +419,7 @@ export default function Home() {
               <ul className="space-y-3">
                 {engagementPoints.map((point) => (
                   <li key={point} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-cyan-400" />
+                    <CircleCheckBig className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
                     <p className="text-sm leading-relaxed text-slate-200 sm:text-base">
                       {point}
                     </p>
@@ -348,9 +428,10 @@ export default function Home() {
               </ul>
               <a
                 href="#contact"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
                 Plan My Marketing Strategy
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -396,8 +477,9 @@ export default function Home() {
             </div>
             <a
               href="mailto:hello@envisiondigitalsolution.com"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
             >
+              <Mail className="h-4 w-4" />
               hello@envisiondigitalsolution.com
             </a>
           </div>
