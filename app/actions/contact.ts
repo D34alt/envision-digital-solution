@@ -48,7 +48,7 @@ export async function submitContactForm(
   try {
     if (resend) {
       await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
+from: process.env.RESEND_FROM_EMAIL ?? "noreply@envisionds.com.au",
         to: "hello@envisionds.com.au",
         subject: `New enquiry from ${name.trim()}`,
         text: [
