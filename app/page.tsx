@@ -4,6 +4,7 @@ import CursorGlow from "@/components/cursor-glow";
 import ContactForm from "@/components/contact-form";
 import CopyEmail from "@/components/copy-email";
 import RoadmapCapture from "@/components/roadmap-capture";
+import FaqItem from "@/components/faq-item";
 import {
   AlertTriangle,
   ArrowRight,
@@ -293,7 +294,7 @@ export default function Home() {
                 className="h-6 w-6 rounded-full"
               />
               <p className="text-xs font-medium uppercase tracking-[0.12em]">
-                Digital marketing for service-led businesses
+                Digital marketing that drives real growth
               </p>
             </div>
             <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
@@ -545,17 +546,11 @@ export default function Home() {
           </div>
           <div className="mt-8 space-y-3">
             {faqs.map((item) => (
-              <details
+              <FaqItem
                 key={item.question}
-                className="rounded-2xl border border-white/10 bg-slate-900/50 p-5 backdrop-blur"
-              >
-                <summary className="cursor-pointer list-none text-base font-semibold text-white">
-                  {item.question}
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  {item.answer}
-                </p>
-              </details>
+                question={item.question}
+                answer={item.answer}
+              />
             ))}
           </div>
         </section>
