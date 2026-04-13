@@ -6,6 +6,7 @@ import {
   ArrowRight,
   BarChart3,
   CircleCheckBig,
+  Code2,
   Compass,
   Crosshair,
   Gauge,
@@ -23,21 +24,42 @@ import {
 const frictions = [
   {
     icon: AlertTriangle,
-    title: "You are getting traffic, but not enough qualified leads",
+    title: "You are spending money, but growth still feels unpredictable",
     description:
-      "Clicks alone do not grow a business. Without a full-funnel plan, attention rarely becomes revenue.",
+      "A common scenario: you put budget into ads each month, yet enquiry quality swings wildly and sales still feel inconsistent.",
   },
   {
     icon: Network,
-    title: "Your marketing channels are working in silos",
+    title: "Your channels are active, but not aligned",
     description:
-      "Paid ads, SEO, social and email should amplify each other, not compete for budget without direction.",
+      "You post on social, run ads, and send emails, but each channel tells a different story, so prospects lose confidence before they enquire.",
   },
   {
     icon: BarChart3,
-    title: "Reporting is noisy and hard to action",
+    title: "You see data everywhere, but no clear next move",
     description:
-      "When data is unclear, decisions slow down. Growth comes from simple, measurable priorities each week.",
+      "Impressions go up, clicks look fine, but revenue is flat. The real problem is not effort, it is unclear priorities.",
+  },
+];
+
+const clientScenarios = [
+  {
+    icon: Share2,
+    title: "Posting consistently, but still hearing silence",
+    description:
+      "Many businesses post three to five times a week and build reach, yet still get few serious enquiries because the offer feels vague.",
+  },
+  {
+    icon: MousePointerClick,
+    title: "Ads get clicks, landing pages lose people",
+    description:
+      "A frequent issue is message mismatch: the ad promises one thing, the page feels generic, and high-intent visitors drop off quickly.",
+  },
+  {
+    icon: Mail,
+    title: "Leads enquire once, then disappear",
+    description:
+      "Without a follow-up nurture flow, warm leads cool off fast. This is where many good opportunities quietly die.",
   },
 ];
 
@@ -46,31 +68,37 @@ const servicePillars = [
     icon: Megaphone,
     title: "Paid Ads Management",
     description:
-      "Google and Meta campaigns designed around commercial intent, not vanity metrics.",
+      "For businesses tired of paying for low-fit clicks, we tighten targeting, messaging, and offer alignment to improve lead quality.",
   },
   {
     icon: Search,
     title: "SEO and Content Strategy",
     description:
-      "Search visibility built through targeted pages and content mapped to buyer intent.",
+      "If your ideal buyers are searching and not finding you, we build intent-led pages and content that bring qualified traffic.",
   },
   {
     icon: Share2,
     title: "Social Media Growth",
     description:
-      "Brand-led social systems that build trust and keep your business consistently top of mind.",
+      "When social feels busy but not effective, we create a clear content rhythm that builds trust and drives real enquiry behaviour.",
   },
   {
     icon: MousePointerClick,
     title: "Conversion Journey Optimisation",
     description:
-      "Landing pages and website journeys improved to turn attention into enquiries.",
+      "If users click but do not convert, we simplify key journeys, improve calls to action, and remove friction in decision moments.",
   },
   {
     icon: Mail,
     title: "Email and CRM Nurture",
     description:
-      "Automated nurture journeys that warm up leads and move prospects towards decision.",
+      "For leads that go quiet after first contact, we build practical nurture journeys that keep conversations moving toward action.",
+  },
+  {
+    icon: Code2,
+    title: "Website Development",
+    description:
+      "If you already have a brand direction, wireframe, or reference style, we build fast, conversion-focused websites and landing pages with clean implementation.",
   },
 ];
 
@@ -79,89 +107,94 @@ const frameworkSteps = [
     icon: Compass,
     title: "Discover and Diagnose",
     description:
-      "We audit your market, funnel and channels to identify where growth is leaking.",
+      "We review your current funnel and identify exactly where attention is being lost before it becomes revenue.",
   },
   {
     icon: Map,
     title: "Build the Growth Plan",
     description:
-      "We define channel roles, messaging angles, and a practical 90-day action roadmap.",
+      "You get a clear 90-day roadmap with channel priorities, message angles, and practical focus areas.",
   },
   {
     icon: Rocket,
     title: "Launch and Coordinate",
     description:
-      "We execute campaigns across the right channels with one clear strategy and creative direction.",
+      "We execute across your key channels with one connected strategy, so every campaign reinforces the same promise.",
   },
   {
     icon: Gauge,
     title: "Optimise Weekly",
     description:
-      "We review results, reallocate effort, and refine creative and copy to improve performance over time.",
+      "We track behaviour, refine creative, and reallocate effort to what is genuinely improving lead quality.",
   },
 ];
 
 const differentiators = [
   {
     icon: Crosshair,
-    title: "Strategy before spend",
+    title: "Commercial focus from day one",
     description:
-      "Every campaign starts with positioning and intent mapping, so budget follows a clear commercial purpose.",
+      "We do not chase vanity metrics. We focus on enquiries, conversion intent, and measurable business outcomes.",
   },
   {
     icon: Workflow,
-    title: "One connected growth system",
+    title: "Connected marketing, not random tactics",
     description:
-      "We design channels to work together, creating compounding momentum instead of isolated activity.",
+      "Your channels are planned as one system, so each touchpoint supports the next instead of competing for attention.",
   },
   {
     icon: CircleCheckBig,
-    title: "Clarity-led reporting",
+    title: "Clear reporting you can actually use",
     description:
-      "You get plain-English updates focused on actions, priorities and expected impact.",
+      "You get straightforward updates, what changed, why it changed, and what we are doing next.",
   },
 ];
 
 const engagementPoints = [
-  "90-day digital marketing roadmap tailored to your goals",
-  "Channel setup and campaign execution across priority platforms",
-  "Weekly optimisation rhythm and transparent performance reviews",
-  "Clear focus on lead quality, conversion intent and pipeline growth",
+  "A tailored 90-day digital marketing roadmap",
+  "Campaign execution across your highest-priority channels",
+  "Weekly optimisation rhythm with plain-English reporting",
+  "Clear focus on better-fit leads and conversion behaviour",
 ];
 
 const faqs = [
   {
-    question: "Do you work with early-stage businesses?",
+    question: "What if I have tried agencies before and been disappointed?",
     answer:
-      "Yes. We work with both growing and established businesses, provided there is commitment to a consistent growth strategy.",
+      "That is common. Our approach is intentionally transparent, strategy-led, and grounded in practical weekly actions tied to real outcomes.",
   },
   {
-    question: "Do I need all channels from day one?",
+    question: "Do I need a large budget to get started?",
     answer:
-      "No. We prioritise the channels that best match your audience and commercial goals, then scale from there.",
+      "Not always. We start by prioritising the highest-leverage channels for your stage, then scale once consistent signals appear.",
   },
   {
-    question: "How soon can we begin?",
+    question: "How quickly can we start seeing useful signals?",
     answer:
-      "Most projects can begin quickly after a discovery call and planning session, depending on scope and readiness.",
+      "Most businesses start seeing clearer performance direction in the early weeks, with stronger improvements as optimisation compounds.",
+  },
+  {
+    question: "Can you handle website builds if I do not need full design?",
+    answer:
+      "Yes. We can work from existing brand assets, simple references, or wireframes and focus on a strong development implementation.",
   },
 ];
 
 const stats = [
   {
     icon: Compass,
-    value: "Full-Funnel",
-    label: "Awareness to enquiry strategy",
+    value: "Buyer-first messaging",
+    label: "Speak to real buying concerns",
   },
   {
     icon: Gauge,
-    value: "Weekly",
-    label: "Optimisation and reporting cadence",
+    value: "Weekly optimisation",
+    label: "Clear reporting and next actions",
   },
   {
     icon: Network,
-    value: "Multi-Channel",
-    label: "SEO, paid, social and nurture",
+    value: "Connected channels",
+    label: "SEO, paid, social and nurture aligned",
   },
 ];
 
@@ -195,14 +228,14 @@ export default function Home() {
             />
           </a>
           <nav className="hidden items-center gap-5 text-sm text-slate-300 lg:flex">
+            <a href="#examples" className="transition hover:text-white">
+              Examples
+            </a>
             <a href="#services" className="transition hover:text-white">
               Services
             </a>
             <a href="#framework" className="transition hover:text-white">
               Framework
-            </a>
-            <a href="#contact" className="transition hover:text-white">
-              Contact
             </a>
           </nav>
           <a
@@ -214,7 +247,7 @@ export default function Home() {
           </a>
         </header>
 
-        <section className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <section className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div className="space-y-6">
             <div className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2.5 py-1.5 text-cyan-300">
               <Image
@@ -225,17 +258,18 @@ export default function Home() {
                 className="h-6 w-6 rounded-full"
               />
               <p className="text-xs font-medium uppercase tracking-[0.12em]">
-                Digital marketing that drives business growth
+                Digital marketing for service-led businesses
               </p>
             </div>
             <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
-              Build a predictable pipeline with digital marketing designed for
-              qualified enquiries.
+              If marketing feels busy but sales still feel inconsistent, you
+              are not the problem, your system is.
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              Envision Digital Solution helps service businesses attract the
-              right audience, increase conversion intent, and turn marketing
-              activity into measurable pipeline outcomes.
+              You might be posting content, running ads, and trying to improve
+              SEO, yet still wondering where the next qualified enquiry is
+              coming from. We help you build a clear, connected marketing system
+              that turns effort into predictable pipeline growth.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
@@ -246,24 +280,24 @@ export default function Home() {
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
-                href="#framework"
+                href="#examples"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/60 hover:text-white"
               >
-                See Our Growth Framework
+                See Real-World Examples
               </a>
             </div>
           </div>
 
           <aside className={`${panelClass} p-6 sm:p-8`}>
-            <p className={chapterClass}>The growth story</p>
+            <p className={chapterClass}>What your audience is thinking</p>
             <h2 className="mt-3 text-xl font-semibold text-white sm:text-2xl">
-              How we move your audience from attention to action
+              Before people enquire, they quietly ask themselves three questions
             </h2>
             <ol className="mt-5 space-y-4">
               {[
-                "Attract the right people with clear channel positioning.",
-                "Build trust through relevant messaging and proof.",
-                "Convert intent with focused offers and low-friction next steps.",
+                "Do they actually understand my problem, or are they just selling a package?",
+                "Can I trust them to use my budget properly?",
+                "Is it worth taking the next step with them right now?",
               ].map((step, index) => (
                 <li key={step} className="flex items-start gap-3">
                   <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-semibold text-cyan-300">
@@ -275,7 +309,11 @@ export default function Home() {
                 </li>
               ))}
             </ol>
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <p className="mt-6 text-sm leading-relaxed text-slate-300 sm:text-base">
+              Our strategy aligns your messaging and campaigns to answer these
+              questions clearly, so enquiry feels natural.
+            </p>
+            <div className="mt-8 grid gap-3">
               {stats.map((stat) => {
                 const Icon = stat.icon;
 
@@ -284,13 +322,19 @@ export default function Home() {
                     key={stat.label}
                     className="rounded-2xl border border-white/10 bg-slate-950/70 p-4"
                   >
-                    <Icon className="h-4 w-4 text-cyan-300" />
-                    <p className="mt-3 text-lg font-semibold text-white sm:text-xl">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1 text-xs text-slate-400 sm:text-sm">
-                      {stat.label}
-                    </p>
+                    <div className="flex items-start gap-3">
+                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-300">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <div>
+                        <p className="text-base font-semibold leading-tight text-white">
+                          {stat.value}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                          {stat.label}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
@@ -302,7 +346,7 @@ export default function Home() {
           <div className="max-w-3xl space-y-3">
             <p className={chapterClass}>Act 1: The challenge</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              If this feels familiar, your growth system likely needs structure
+              Real signs your marketing is working hard but not working properly
             </h2>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -324,11 +368,37 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="examples" className="mt-20">
+          <div className="max-w-3xl space-y-3">
+            <p className={chapterClass}>Act 2: Real-world examples</p>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              Situations we see every week in growing businesses
+            </h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {clientScenarios.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article key={item.title} className={cardClass}>
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                    {item.description}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
         <section id="services" className="mt-20">
           <div className="max-w-3xl space-y-3">
-            <p className={chapterClass}>Act 2: The channels</p>
+            <p className={chapterClass}>Act 3: The services</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              Services built to create demand and convert intent
+              How we solve these problems in practice
             </h2>
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -354,9 +424,9 @@ export default function Home() {
 
         <section id="framework" className="mt-20">
           <div className="max-w-3xl space-y-3">
-            <p className={chapterClass}>Act 3: The framework</p>
+            <p className={chapterClass}>Act 4: The framework</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              A clear operating model for sustainable digital growth
+              What working together looks like, step by step
             </h2>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -385,9 +455,9 @@ export default function Home() {
 
         <section className="mt-20">
           <div className="max-w-3xl space-y-3">
-            <p className={chapterClass}>Act 4: Why Envision</p>
+            <p className={chapterClass}>Act 5: Why Envision</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              What makes our approach different
+              Why clients stay with us long-term
             </h2>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -411,9 +481,9 @@ export default function Home() {
 
         <section className="mt-20">
           <div className={`${panelClass} p-6 sm:p-8`}>
-            <p className={chapterClass}>Act 5: Engagement</p>
+            <p className={chapterClass}>Act 6: Engagement</p>
             <h2 className="mt-3 max-w-3xl text-2xl font-semibold text-white sm:text-3xl">
-              A practical digital marketing engagement focused on lead quality
+              Clear scope, clear process, clear outcomes
             </h2>
             <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <ul className="space-y-3">
@@ -441,7 +511,7 @@ export default function Home() {
           <div className="max-w-3xl space-y-3">
             <p className={chapterClass}>Common questions</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              What businesses often ask before getting started
+              Honest answers to what clients usually ask first
             </h2>
           </div>
           <div className="mt-8 space-y-3">
@@ -468,11 +538,11 @@ export default function Home() {
             <div className="max-w-2xl space-y-2">
               <p className={chapterClass}>Final step</p>
               <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-                Ready to turn marketing effort into consistent pipeline growth?
+                If marketing currently feels confusing, we can make it clear.
               </h2>
               <p className="text-sm leading-relaxed text-slate-300 sm:text-base">
-                Book a strategy conversation and we will map where your best
-                growth opportunities are across channel, messaging and funnel.
+                Book a strategy conversation and we will map your highest-value
+                opportunities across channel, messaging, and conversion flow.
               </p>
             </div>
             <a
