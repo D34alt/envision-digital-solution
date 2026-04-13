@@ -42,6 +42,13 @@ const frictions = [
   },
 ];
 
+const navItems = [
+  { href: "#examples", label: "Examples", icon: Share2 },
+  { href: "#services", label: "Services", icon: Megaphone },
+  { href: "#framework", label: "Framework", icon: Compass },
+  { href: "#contact", label: "Contact", icon: Mail },
+];
+
 const clientScenarios = [
   {
     icon: Share2,
@@ -216,35 +223,45 @@ export default function Home() {
       </div>
 
       <main className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
-        <header className="flex items-center justify-between gap-4 rounded-full border border-white/10 bg-slate-900/70 px-4 py-3 backdrop-blur">
-          <a href="#" className="flex items-center gap-3">
-            <Image
-              src="/branding/envision-logo-light.png"
-              alt="Envision Digital Solution"
-              width={220}
-              height={45}
-              className="h-8 w-auto sm:h-9"
-              priority
-            />
-          </a>
-          <nav className="hidden items-center gap-5 text-sm text-slate-300 lg:flex">
-            <a href="#examples" className="transition hover:text-white">
-              Examples
+        <header className="rounded-3xl border border-white/10 bg-slate-900/70 p-3 backdrop-blur sm:p-4">
+          <div className="flex items-center justify-between gap-4">
+            <a href="#" className="flex items-center gap-3">
+              <Image
+                src="/branding/envision-logo-light.png"
+                alt="Envision Digital Solution"
+                width={220}
+                height={45}
+                className="h-8 w-auto sm:h-9"
+                priority
+              />
+              <span className="hidden rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300 md:inline-flex">
+                Growth partner
+              </span>
             </a>
-            <a href="#services" className="transition hover:text-white">
-              Services
+            <a
+              href="#contact"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+            >
+              Book a Strategy Call
+              <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#framework" className="transition hover:text-white">
-              Framework
-            </a>
+          </div>
+          <nav className="mt-3 flex flex-wrap gap-2">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-slate-950/60 px-4 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
+                >
+                  <Icon className="h-4 w-4 text-cyan-300" />
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
-          <a
-            href="#contact"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-          >
-            Book a Strategy Call
-            <ArrowRight className="h-4 w-4" />
-          </a>
         </header>
 
         <section className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
