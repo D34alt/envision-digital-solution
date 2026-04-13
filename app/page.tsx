@@ -1,55 +1,131 @@
 import Image from "next/image";
 
 import CursorGlow from "@/components/cursor-glow";
-const services = [
+
+const frictions = [
   {
-    title: "Website Design & Development",
+    title: "You are getting traffic, but not enough qualified leads",
     description:
-      "Conversion-focused, responsive websites tailored to your brand and growth goals.",
+      "Clicks alone do not grow a business. Without a full-funnel plan, attention rarely becomes revenue.",
   },
   {
-    title: "Brand & Visual Systems",
+    title: "Your marketing channels are working in silos",
     description:
-      "Cohesive identity direction that keeps your business memorable across every touchpoint.",
+      "Paid ads, SEO, social and email should amplify each other, not compete for budget without direction.",
   },
   {
-    title: "SEO & Performance Optimization",
+    title: "Reporting is noisy and hard to action",
     description:
-      "Fast, search-ready experiences engineered to improve discoverability and lead quality.",
+      "When data is unclear, decisions slow down. Growth comes from simple, measurable priorities each week.",
   },
 ];
 
-const processSteps = [
+const servicePillars = [
   {
-    title: "Discover",
+    title: "Paid Ads Management",
     description:
-      "We understand your audience, goals, and offers to define a clear digital direction.",
+      "Google and Meta campaigns designed around commercial intent, not vanity metrics.",
   },
   {
-    title: "Design",
+    title: "SEO and Content Strategy",
     description:
-      "We create intuitive layouts and visual hierarchy that guide visitors toward action.",
+      "Search visibility built through targeted pages and content mapped to buyer intent.",
   },
   {
-    title: "Launch",
+    title: "Social Media Growth",
     description:
-      "We deliver a production-ready website with ongoing optimization opportunities.",
+      "Brand-led social systems that build trust and keep your business consistently top of mind.",
+  },
+  {
+    title: "Conversion Journey Optimisation",
+    description:
+      "Landing pages and website journeys improved to turn attention into enquiries.",
+  },
+  {
+    title: "Email and CRM Nurture",
+    description:
+      "Automated nurture journeys that warm up leads and move prospects towards decision.",
   },
 ];
 
-const highlights = [
-  "Mobile-first by default for seamless experiences on phones and tablets",
-  "Modern slate aesthetic with purposeful, confidence-building visual clarity",
-  "Scalable architecture built for fast iteration as your business grows",
+const frameworkSteps = [
+  {
+    title: "Discover and Diagnose",
+    description:
+      "We audit your market, funnel and channels to identify where growth is leaking.",
+  },
+  {
+    title: "Build the Growth Plan",
+    description:
+      "We define channel roles, messaging angles, and a practical 90-day action roadmap.",
+  },
+  {
+    title: "Launch and Coordinate",
+    description:
+      "We execute campaigns across the right channels with one clear strategy and creative direction.",
+  },
+  {
+    title: "Optimise Weekly",
+    description:
+      "We review results, reallocate effort, and refine creative and copy to improve performance over time.",
+  },
+];
+
+const differentiators = [
+  {
+    title: "Strategy before spend",
+    description:
+      "Every campaign starts with positioning and intent mapping, so budget follows a clear commercial purpose.",
+  },
+  {
+    title: "One connected growth system",
+    description:
+      "We design channels to work together, creating compounding momentum instead of isolated activity.",
+  },
+  {
+    title: "Clarity-led reporting",
+    description:
+      "You get plain-English updates focused on actions, priorities and expected impact.",
+  },
+];
+
+const engagementPoints = [
+  "90-day digital marketing roadmap tailored to your goals",
+  "Channel setup and campaign execution across priority platforms",
+  "Weekly optimisation rhythm and transparent performance reviews",
+  "Clear focus on lead quality, conversion intent and pipeline growth",
+];
+
+const faqs = [
+  {
+    question: "Do you work with early-stage businesses?",
+    answer:
+      "Yes. We work with both growing and established businesses, provided there is commitment to a consistent growth strategy.",
+  },
+  {
+    question: "Do I need all channels from day one?",
+    answer:
+      "No. We prioritise the channels that best match your audience and commercial goals, then scale from there.",
+  },
+  {
+    question: "How soon can we begin?",
+    answer:
+      "Most projects can begin quickly after a discovery call and planning session, depending on scope and readiness.",
+  },
 ];
 
 const stats = [
-  { value: "2-3 Weeks", label: "Typical launch window" },
-  { value: "90+", label: "Performance target" },
+  { value: "Full-Funnel", label: "Awareness to enquiry strategy" },
+  { value: "Weekly", label: "Optimisation and reporting cadence" },
+  { value: "Multi-Channel", label: "SEO, paid, social and nurture" },
 ];
 
-const panelClass =
-  "rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur transition duration-300 hover:border-cyan-400/35 hover:bg-slate-900/75";
+const panelClass = "rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur";
+
+const cardClass =
+  "rounded-3xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur transition duration-300 hover:border-cyan-400/35 hover:bg-slate-900/75";
+
+const chapterClass = "text-xs font-medium uppercase tracking-[0.14em] text-cyan-300";
 
 export default function Home() {
   return (
@@ -60,11 +136,12 @@ export default function Home() {
         <div className="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl sm:h-96 sm:w-96" />
         <div className="absolute bottom-0 right-0 h-72 w-72 translate-x-1/4 translate-y-1/4 rounded-full bg-indigo-500/20 blur-3xl" />
       </div>
+
       <main className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
         <header className="flex items-center justify-between gap-4 rounded-full border border-white/10 bg-slate-900/70 px-4 py-3 backdrop-blur">
           <a href="#" className="flex items-center gap-3">
             <Image
-              src="/branding/envision-logo.png"
+              src="/branding/envision-logo-light.png"
               alt="Envision Digital Solution"
               width={220}
               height={45}
@@ -72,11 +149,22 @@ export default function Home() {
               priority
             />
           </a>
+          <nav className="hidden items-center gap-5 text-sm text-slate-300 lg:flex">
+            <a href="#services" className="transition hover:text-white">
+              Services
+            </a>
+            <a href="#framework" className="transition hover:text-white">
+              Framework
+            </a>
+            <a href="#contact" className="transition hover:text-white">
+              Contact
+            </a>
+          </nav>
           <a
             href="#contact"
             className="inline-flex h-11 items-center justify-center rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
           >
-            Book a Call
+            Book a Strategy Call
           </a>
         </header>
 
@@ -91,16 +179,17 @@ export default function Home() {
                 className="h-6 w-6 rounded-full"
               />
               <p className="text-xs font-medium uppercase tracking-[0.12em]">
-                Digital agency for modern brands
+                Digital marketing that drives business growth
               </p>
             </div>
             <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
-              Web experiences that make your business impossible to ignore.
+              Build a predictable pipeline with digital marketing designed for
+              qualified enquiries.
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              Envision Digital Solution helps startups and growing businesses
-              launch sleek, intuitive websites that convert visitors into
-              high-value clients.
+              Envision Digital Solution helps service businesses attract the
+              right audience, increase conversion intent, and turn marketing
+              activity into measurable pipeline outcomes.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
@@ -110,29 +199,36 @@ export default function Home() {
                 Explore Services
               </a>
               <a
-                href="#process"
+                href="#framework"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/60 hover:text-white"
               >
-                See Our Process
+                See Our Growth Framework
               </a>
             </div>
           </div>
 
           <aside className={`${panelClass} p-6 sm:p-8`}>
-            <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400">
-              What you can expect
-            </p>
-            <ul className="mt-5 space-y-4">
-              {highlights.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-cyan-400" />
-                  <span className="text-sm leading-relaxed text-slate-200 sm:text-base">
-                    {item}
+            <p className={chapterClass}>The growth story</p>
+            <h2 className="mt-3 text-xl font-semibold text-white sm:text-2xl">
+              How we move your audience from attention to action
+            </h2>
+            <ol className="mt-5 space-y-4">
+              {[
+                "Attract the right people with clear channel positioning.",
+                "Build trust through relevant messaging and proof.",
+                "Convert intent with focused offers and low-friction next steps.",
+              ].map((step, index) => (
+                <li key={step} className="flex items-start gap-3">
+                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-semibold text-cyan-300">
+                    {index + 1}
                   </span>
+                  <p className="text-sm leading-relaxed text-slate-200 sm:text-base">
+                    {step}
+                  </p>
                 </li>
               ))}
-            </ul>
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            </ol>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {stats.map((stat) => (
                 <div
                   key={stat.label}
@@ -150,18 +246,35 @@ export default function Home() {
           </aside>
         </section>
 
-        <section id="services" className="mt-20">
+        <section className="mt-20">
           <div className="max-w-3xl space-y-3">
-            <p className="text-xs font-medium uppercase tracking-[0.14em] text-cyan-300">
-              Services
-            </p>
+            <p className={chapterClass}>Act 1: The challenge</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              Everything you need to launch and scale your online presence
+              If this feels familiar, your growth system likely needs structure
             </h2>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <article key={service.title} className={`${panelClass} p-6`}>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {frictions.map((item) => (
+              <article key={item.title} className={cardClass}>
+                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="services" className="mt-20">
+          <div className="max-w-3xl space-y-3">
+            <p className={chapterClass}>Act 2: The channels</p>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              Services built to create demand and convert intent
+            </h2>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {servicePillars.map((service) => (
+              <article key={service.title} className={cardClass}>
                 <h3 className="text-lg font-semibold text-white">
                   {service.title}
                 </h3>
@@ -173,20 +286,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="process" className="mt-20">
+        <section id="framework" className="mt-20">
           <div className="max-w-3xl space-y-3">
-            <p className="text-xs font-medium uppercase tracking-[0.14em] text-cyan-300">
-              Process
-            </p>
+            <p className={chapterClass}>Act 3: The framework</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              A clear path from idea to high-impact launch
+              A clear operating model for sustainable digital growth
             </h2>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {processSteps.map((step, index) => (
-              <article key={step.title} className={`${panelClass} p-6`}>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {frameworkSteps.map((step, index) => (
+              <article key={step.title} className={cardClass}>
                 <p className="text-xs font-medium uppercase tracking-[0.14em] text-cyan-300">
-                  {`0${index + 1}`}
+                  {`Step ${index + 1}`}
                 </p>
                 <h3 className="mt-3 text-lg font-semibold text-white">
                   {step.title}
@@ -199,17 +310,89 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="mt-20">
+          <div className="max-w-3xl space-y-3">
+            <p className={chapterClass}>Act 4: Why Envision</p>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              What makes our approach different
+            </h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {differentiators.map((item) => (
+              <article key={item.title} className={cardClass}>
+                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className={`${panelClass} p-6 sm:p-8`}>
+            <p className={chapterClass}>Act 5: Engagement</p>
+            <h2 className="mt-3 max-w-3xl text-2xl font-semibold text-white sm:text-3xl">
+              A practical digital marketing engagement focused on lead quality
+            </h2>
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <ul className="space-y-3">
+                {engagementPoints.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-cyan-400" />
+                    <p className="text-sm leading-relaxed text-slate-200 sm:text-base">
+                      {point}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#contact"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+              >
+                Plan My Marketing Strategy
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <div className="max-w-3xl space-y-3">
+            <p className={chapterClass}>Common questions</p>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              What businesses often ask before getting started
+            </h2>
+          </div>
+          <div className="mt-8 space-y-3">
+            {faqs.map((item) => (
+              <details
+                key={item.question}
+                className="rounded-2xl border border-white/10 bg-slate-900/50 p-5 backdrop-blur"
+              >
+                <summary className="cursor-pointer list-none text-base font-semibold text-white">
+                  {item.question}
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
+
         <section id="contact" className="mt-20">
           <div
             className={`${panelClass} flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between`}
           >
             <div className="max-w-2xl space-y-2">
-              <p className="text-xs font-medium uppercase tracking-[0.14em] text-cyan-300">
-                Ready to build?
-              </p>
+              <p className={chapterClass}>Final step</p>
               <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-                Let’s design a website your audience actually remembers.
+                Ready to turn marketing effort into consistent pipeline growth?
               </h2>
+              <p className="text-sm leading-relaxed text-slate-300 sm:text-base">
+                Book a strategy conversation and we will map where your best
+                growth opportunities are across channel, messaging and funnel.
+              </p>
             </div>
             <a
               href="mailto:hello@envisiondigitalsolution.com"
