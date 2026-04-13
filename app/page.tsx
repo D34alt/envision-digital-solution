@@ -569,11 +569,11 @@ export default function Home() {
               </p>
             </div>
             <a
-              href="mailto:hello@envisiondigitalsolution.com"
+              href="mailto:hello@envisionds.com.au"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
             >
               <Mail className="h-4 w-4" />
-              hello@envisiondigitalsolution.com
+              hello@envisionds.com.au
             </a>
           </div>
         </section>
