@@ -224,8 +224,8 @@ export default function Home() {
 
       <main className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
         <header className="rounded-3xl border border-white/10 bg-slate-900/70 p-3 backdrop-blur sm:p-4">
-          <div className="flex items-center justify-between gap-4">
-            <a href="#" className="flex items-center gap-3">
+          <div className="flex items-center gap-3 lg:gap-4">
+            <a href="#" className="flex shrink-0 items-center gap-3 pr-1">
               <Image
                 src="/branding/envision-logo-light.png"
                 alt="Envision Digital Solution"
@@ -234,34 +234,40 @@ export default function Home() {
                 className="h-8 w-auto sm:h-9"
                 priority
               />
-              <span className="hidden rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300 md:inline-flex">
+              <span className="hidden rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300 2xl:inline-flex">
                 Growth partner
               </span>
             </a>
+
+            <nav className="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex w-max items-center gap-2 px-1">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-slate-950/60 px-3.5 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
+                    >
+                      <Icon className="h-4 w-4 text-cyan-300" />
+                      {item.label}
+                    </a>
+                  );
+                })}
+              </div>
+            </nav>
+
             <a
               href="#contact"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 sm:h-11 sm:px-5"
             >
-              Book a Strategy Call
+              <span className="sm:hidden">Book</span>
+              <span className="hidden sm:inline xl:hidden">Book Strategy</span>
+              <span className="hidden xl:inline">Book a Strategy Call</span>
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-          <nav className="mt-3 flex flex-wrap gap-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-slate-950/60 px-4 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
-                >
-                  <Icon className="h-4 w-4 text-cyan-300" />
-                  {item.label}
-                </a>
-              );
-            })}
-          </nav>
         </header>
 
         <section className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
