@@ -1,6 +1,8 @@
 import Image from "next/image";
 
 import CursorGlow from "@/components/cursor-glow";
+import ContactForm from "@/components/contact-form";
+import CopyEmail from "@/components/copy-email";
 import {
   AlertTriangle,
   ArrowRight,
@@ -555,26 +557,22 @@ export default function Home() {
         </section>
 
         <section id="contact" className="mt-20">
-          <div
-            className={`${panelClass} flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between`}
-          >
-            <div className="max-w-2xl space-y-2">
-              <p className={chapterClass}>Final step</p>
-              <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-                If marketing currently feels confusing, we can make it clear.
-              </h2>
-              <p className="text-sm leading-relaxed text-slate-300 sm:text-base">
-                Book a strategy conversation and we will map your highest-value
-                opportunities across channel, messaging, and conversion flow.
-              </p>
+          <div className={`${panelClass} p-6 sm:p-8`}>
+            <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+              <div className="space-y-4">
+                <p className={chapterClass}>Final step</p>
+                <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+                  If marketing currently feels confusing, we can make it clear.
+                </h2>
+                <p className="text-sm leading-relaxed text-slate-300 sm:text-base">
+                  Book a strategy conversation and we will map your
+                  highest-value opportunities across channel, messaging, and
+                  conversion flow.
+                </p>
+                <CopyEmail />
+              </div>
+              <ContactForm />
             </div>
-            <a
-              href="mailto:hello@envisionds.com.au"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-            >
-              <Mail className="h-4 w-4" />
-              hello@envisionds.com.au
-            </a>
           </div>
         </section>
 
