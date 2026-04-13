@@ -21,7 +21,7 @@ const inputClass =
 
 const labelClass = "mb-1.5 block text-sm font-medium text-slate-300";
 
-export default function ContactForm() {
+export default function ContactForm({ source }: { source?: string }) {
   const [state, formAction, pending] = useActionState<
     ContactFormState,
     FormData
@@ -49,6 +49,7 @@ export default function ContactForm() {
 
   return (
     <form action={formAction} className="space-y-5">
+      {source && <input type="hidden" name="source" value={source} />}
       {state?.message && !state.success && (
         <p className="rounded-xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
           {state.message}

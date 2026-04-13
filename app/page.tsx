@@ -3,6 +3,7 @@ import Image from "next/image";
 import CursorGlow from "@/components/cursor-glow";
 import ContactForm from "@/components/contact-form";
 import CopyEmail from "@/components/copy-email";
+import RoadmapCapture from "@/components/roadmap-capture";
 import {
   AlertTriangle,
   ArrowRight,
@@ -510,7 +511,7 @@ export default function Home() {
             <h2 className="mt-3 max-w-3xl text-2xl font-semibold text-white sm:text-3xl">
               Clear scope, clear process, clear outcomes
             </h2>
-            <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-start">
               <ul className="space-y-3">
                 {engagementPoints.map((point) => (
                   <li key={point} className="flex items-start gap-3">
@@ -521,13 +522,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#contact"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-              >
-                Plan My Marketing Strategy
-                <ArrowRight className="h-4 w-4" />
-              </a>
+              <RoadmapCapture />
             </div>
           </div>
         </section>
