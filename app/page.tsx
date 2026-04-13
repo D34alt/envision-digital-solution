@@ -393,7 +393,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="examples" className="mt-20">
+<section id="examples" className="mt-20 scroll-mt-8">
           <div className="max-w-3xl space-y-3">
             <p className={chapterClass}>Act 2: Real-world examples</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
@@ -419,7 +419,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="services" className="mt-20">
+<section id="services" className="mt-20 scroll-mt-8">
           <div className="max-w-3xl space-y-3">
             <p className={chapterClass}>Act 3: The services</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
@@ -447,7 +447,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="framework" className="mt-20">
+<section id="framework" className="mt-20 scroll-mt-8">
           <div className="max-w-3xl space-y-3">
             <p className={chapterClass}>Act 4: The framework</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
