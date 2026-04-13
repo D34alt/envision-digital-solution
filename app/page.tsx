@@ -218,12 +218,21 @@ const chapterClass = "text-xs font-medium uppercase tracking-[0.14em] text-cyan-
 export default function Home() {
   return (
     <div className="relative isolate flex flex-1 overflow-x-clip bg-slate-950 text-slate-100">
-      <CursorGlow />
+      {/* Smooth ambient gradients */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(ellipse 90% 45% at 50% 0%, rgba(6,182,212,0.14) 0%, transparent 70%)",
+            "radial-gradient(ellipse 65% 35% at 32% 4%, rgba(99,102,241,0.10) 0%, transparent 60%)",
+            "radial-gradient(ellipse 35% 45% at 88% 55%, rgba(139,92,246,0.06) 0%, transparent 55%)",
+            "radial-gradient(ellipse 50% 30% at 75% 95%, rgba(99,102,241,0.08) 0%, transparent 60%)",
+          ].join(", "),
+        }}
+      />
 
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl sm:h-96 sm:w-96" />
-        <div className="absolute bottom-0 right-0 h-72 w-72 translate-x-1/4 translate-y-1/4 rounded-full bg-indigo-500/20 blur-3xl" />
-      </div>
+      <CursorGlow />
 
       <main className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
         <header className="rounded-3xl border border-white/10 bg-slate-900/70 p-3 backdrop-blur sm:p-4">
