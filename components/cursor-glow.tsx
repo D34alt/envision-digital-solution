@@ -3,166 +3,63 @@
 import { useEffect, useRef } from "react";
 
 /* ================================================================
- *  Ferrofluid cursor glow -- WebGL renderer
- *  - A small cohesive "core" blob follows the cursor with snappy,
- *    near-critically-damped spring physics (no bounciness, low lag)
- *  - A larger, slower "wake" blob drags behind, giving the metaball
- *    field a teardrop / ferrofluid-stretch silhouette during motion
- *  - Fast cursor motion sheds a few low-velocity droplets *behind*
- *    the cursor (in the wake direction) which then ooze back and
- *    re-merge via the metaball field
- *  - All blobs are summed in a single fragment shader as a
- *    metaball field (one fullscreen quad, one draw call)
- *  - Always renders at full quality; rAF naturally throttles to
- *    ~30fps under macOS Low Power Mode without our help, and the
- *    shader is cheap enough to fit comfortably in either budget
+ *  Geometric shape cursor glow -- Canvas 2D renderer
+ *  - Cursor motion emits small nodes that drift outward
+ *  - Each frame we wire the live nodes together using a
+ *    proximity-based k-nearest graph; lines naturally form little
+ *    triangles and quads, and break/reform as nodes drift apart
+ *  - The moment the cursor goes idle, every node springs back to
+ *    the cursor and fades out, so at rest nothing is rendered
+ *  - Honours reduced-motion and coarse-pointer preferences
  * =============================================================== */
 
 /* ---------- tuning knobs ---------- */
-/* Particles */
-const PARTICLE_POOL = 10;
-const BURST_THRESHOLD = 22; // px/frame -- only sheds droplets on real motion
-const BURST_SPEED_FACTOR = 0.08; // initial droplet speed scales gently with cursor speed
-const BURST_WAKE_SPREAD = 0.55; // radians; angular jitter around the wake direction
-const PARTICLE_MIN_R = 22;
-const PARTICLE_MAX_R = 48;
-const PARTICLE_SPRING_FAR = 0.0055;
-const PARTICLE_SPRING_NEAR = 0.022;
-const PARTICLE_NEAR_DIST = 170;
-const PARTICLE_DAMPING = 0.92; // viscous -- droplets settle quickly
-const PARTICLE_JITTER = 0.04; // subtle organic wobble
-const PARTICLE_MERGE_DIST = 55;
+const POOL_SIZE = 64;
 
-/* Core blob (cursor-following) */
-const CORE_STIFFNESS = 0.18;
-const CORE_DAMPING = 0.62; // ~0.73 of critical -- snappy, minimal overshoot
-const CORE_RADIUS = 90;
+/* Spawning */
+const SPAWN_SPEED_THRESHOLD = 0.6; // cursor px/frame before nodes start emitting
+const SPAWN_VELOCITY_FACTOR = 0.18; // initial node speed = cursor speed * factor
+const SPAWN_SPREAD = 1.4; // radians of angular jitter around cursor direction
+const SPAWN_RATE_PER_FRAME = 1; // hard cap on emissions per frame
 
-/* Wake blob (slower, larger; drags behind to form the teardrop) */
-const TRAIL_STIFFNESS = 0.045;
-const TRAIL_DAMPING = 0.42; // close to critically damped -- smooth, no bounce
-const TRAIL_RADIUS = 130;
+/* Drift while the cursor is moving */
+const NODE_DAMPING_MOVING = 0.97; // very loose -- nodes keep gliding
+const NODE_FADE_MOVING = 0.997; // barely ages while you're moving
 
-/* Per-blob colour intensity (fed into the shader as the .w channel).
- * Lower = more subtle. Field saturation is `1 - exp(-field)` in the
- * shader, so values < ~0.45 stay well under full opacity even when
- * blobs overlap. */
-const CORE_INTENSITY = 0.30;
-const TRAIL_INTENSITY = 0.14;
-const PARTICLE_INTENSITY_SCALE = 0.55;
+/* Float + fade once the cursor is idle. No spring -- nodes keep their
+ * momentum, slow naturally, and dissolve in place. */
+const IDLE_SPEED_THRESHOLD = 0.5;
+const NODE_DAMPING_IDLE = 0.97; // loose so the wander force can drift them
+const IDLE_FADE = 0.992; // ~5-6s to fade fully -- they linger
 
-/* Reserved slots: 0 = core, 1 = wake, 2.. = particles. */
-const MAX_BLOBS = PARTICLE_POOL + 2;
+/* Per-frame random impulse on each node. Combined with loose damping
+ * this gives a soft Brownian wander so the field never looks frozen. */
+const WANDER_FORCE = 0.06;
 
-const CYAN: [number, number, number] = [34 / 255, 211 / 255, 238 / 255];
-/* Wake uses a slightly cooler indigo so the trailing edge reads as the
- * deeper part of the same fluid rather than a separate blob. */
-const INDIGO: [number, number, number] = [79 / 255, 110 / 255, 220 / 255];
+/* Visuals */
+const NODE_MIN_R = 1.4;
+const NODE_MAX_R = 3.4;
+
+const LINK_MAX_DIST = 130; // edges only exist when nodes are within this range
+const LINK_NEIGHBOURS = 2; // each node tries to keep this many nearest links
+
+const COLOUR_NODE_RGB = "186, 230, 253"; // sky-200
+const COLOUR_LINK_RGB = "34, 211, 238"; // cyan-400
+const LINK_MAX_ALPHA = 0.55;
+const NODE_MAX_ALPHA = 0.95;
+
+/* DPR cap. Keeps line crispness without overpaying on high-DPR phones. */
+const MAX_DPR = 2;
 
 /* ---------- types ---------- */
-interface Droplet {
+interface ShapeNode {
   x: number;
   y: number;
   vx: number;
   vy: number;
   r: number;
-  baseR: number;
   alpha: number;
   alive: boolean;
-}
-
-interface Spring {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-}
-
-/* DPR cap. 2 is a sweet spot for crispness vs fragment-shader cost on
- * Retina displays; 3x phone DPRs would otherwise quadruple the work. */
-const MAX_DPR = 2;
-
-/* ---------- shaders ---------- */
-const VERT_SRC = `
-attribute vec2 aPos;
-void main() {
-  gl_Position = vec4(aPos, 0.0, 1.0);
-}
-`;
-
-const FRAG_SRC = `
-precision mediump float;
-
-#define MAX_BLOBS ${MAX_BLOBS}
-
-uniform vec4 uBlobs[MAX_BLOBS];   // xy = position (px, top-left origin), z = radius (px), w = intensity
-uniform vec3 uColors[MAX_BLOBS];  // linear-ish 0..1 rgb
-uniform int  uBlobCount;
-uniform vec2 uResolution;         // framebuffer size in pixels
-
-void main() {
-  // gl_FragCoord origin is bottom-left; our blob positions use top-left.
-  vec2 frag = vec2(gl_FragCoord.x, uResolution.y - gl_FragCoord.y);
-
-  float field = 0.0;
-  vec3  colorAcc = vec3(0.0);
-
-  for (int i = 0; i < MAX_BLOBS; i++) {
-    if (i >= uBlobCount) break;
-    vec4 b = uBlobs[i];
-    if (b.w <= 0.0 || b.z <= 0.0) continue;
-    vec2 d = frag - b.xy;
-    float dist = length(d);
-    if (dist >= b.z) continue;
-    float t = 1.0 - dist / b.z;
-    // smoothstep falloff (cubic) -- soft edges that still merge cleanly.
-    float falloff = t * t * (3.0 - 2.0 * t);
-    float contrib = b.w * falloff;
-    field += contrib;
-    colorAcc += uColors[i] * contrib;
-  }
-
-  if (field < 0.001) discard;
-
-  vec3 finalColor = colorAcc / field;
-  // Soft cap so heavily overlapping blobs don't punch out of the page.
-  float alpha = 1.0 - exp(-field);
-  // Premultiplied output.
-  gl_FragColor = vec4(finalColor * alpha, alpha);
-}
-`;
-
-/* ---------- WebGL helpers ---------- */
-function compileShader(
-  gl: WebGLRenderingContext,
-  type: number,
-  src: string,
-): WebGLShader | null {
-  const sh = gl.createShader(type);
-  if (!sh) return null;
-  gl.shaderSource(sh, src);
-  gl.compileShader(sh);
-  if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
-    gl.deleteShader(sh);
-    return null;
-  }
-  return sh;
-}
-
-function buildProgram(gl: WebGLRenderingContext): WebGLProgram | null {
-  const vs = compileShader(gl, gl.VERTEX_SHADER, VERT_SRC);
-  const fs = compileShader(gl, gl.FRAGMENT_SHADER, FRAG_SRC);
-  if (!vs || !fs) return null;
-  const prog = gl.createProgram();
-  if (!prog) return null;
-  gl.attachShader(prog, vs);
-  gl.attachShader(prog, fs);
-  gl.linkProgram(prog);
-  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-    gl.deleteProgram(prog);
-    return null;
-  }
-  return prog;
 }
 
 export default function CursorGlow() {
@@ -178,128 +75,94 @@ export default function CursorGlow() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext("webgl", {
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: false,
-      depth: false,
-      stencil: false,
-      preserveDrawingBuffer: false,
-      powerPreference: "low-power",
-    }) as WebGLRenderingContext | null;
-    if (!gl) return;
-
-    const program = buildProgram(gl);
-    if (!program) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
     /* ---------- canvas sizing ---------- */
     let appliedDpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
 
     const resize = () => {
       appliedDpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
-      const w = Math.floor(window.innerWidth * appliedDpr);
-      const h = Math.floor(window.innerHeight * appliedDpr);
-      canvas.width = w;
-      canvas.height = h;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      gl.viewport(0, 0, w, h);
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = Math.floor(w * appliedDpr);
+      canvas.height = Math.floor(h * appliedDpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      // Draw in CSS pixels; the transform handles DPR scaling.
+      ctx.setTransform(appliedDpr, 0, 0, appliedDpr, 0, 0);
     };
     resize();
     window.addEventListener("resize", resize);
 
-    /* ---------- GL setup ---------- */
-    gl.useProgram(program);
-    gl.disable(gl.DEPTH_TEST);
-    gl.enable(gl.BLEND);
-    // Premultiplied source-over.
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.clearColor(0, 0, 0, 0);
-
-    // Fullscreen quad (TRIANGLE_STRIP).
-    const quadBuf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-      gl.STATIC_DRAW,
-    );
-    const aPosLoc = gl.getAttribLocation(program, "aPos");
-    gl.enableVertexAttribArray(aPosLoc);
-    gl.vertexAttribPointer(aPosLoc, 2, gl.FLOAT, false, 0, 0);
-
-    const uBlobsLoc = gl.getUniformLocation(program, "uBlobs");
-    const uColorsLoc = gl.getUniformLocation(program, "uColors");
-    const uBlobCountLoc = gl.getUniformLocation(program, "uBlobCount");
-    const uResolutionLoc = gl.getUniformLocation(program, "uResolution");
-
-    const blobsBuf = new Float32Array(MAX_BLOBS * 4);
-    const colorsBuf = new Float32Array(MAX_BLOBS * 3);
-
     /* ---------- state ---------- */
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
+
     let targetX = cx;
     let targetY = cy;
-    let prevTargetX = cx;
-    let prevTargetY = cy;
+    let cursorX = cx;
+    let cursorY = cy;
+    let prevCursorX = cx;
+    let prevCursorY = cy;
+    let firstMove = true;
 
-    const core: Spring = { x: cx, y: cy, vx: 0, vy: 0 };
-    const trail: Spring = { x: cx, y: cy, vx: 0, vy: 0 };
-
-    const pool: Droplet[] = Array.from({ length: PARTICLE_POOL }, () => ({
-      x: cx,
-      y: cy,
+    const pool: ShapeNode[] = Array.from({ length: POOL_SIZE }, () => ({
+      x: 0,
+      y: 0,
       vx: 0,
       vy: 0,
       r: 0,
-      baseR: 0,
       alpha: 0,
       alive: false,
     }));
     let spawnIdx = 0;
 
-    /* ---------- spawn helpers ----------
-     * Droplets are emitted *behind* the cursor (in the wake direction),
-     * with a small angular spread and modest initial speed. They then
-     * spring back toward the cursor and re-merge -- like a bead of
-     * ferrofluid that briefly trails behind a moving magnet. */
-    function burst(
-      count: number,
-      fromX: number,
-      fromY: number,
-      cursorVx: number,
-      cursorVy: number,
-      speed: number,
-    ) {
-      const inv = 1 / Math.max(speed, 0.0001);
-      // Wake direction = opposite to cursor motion, normalised.
-      const wakeX = -cursorVx * inv;
-      const wakeY = -cursorVy * inv;
+    /* Pre-allocated buffers for the per-frame k-nearest pass to avoid
+     * thrashing the GC. Layout: nearest[i*K + k] = node index. */
+    const nearest = new Int16Array(POOL_SIZE * LINK_NEIGHBOURS);
+    const nearestDist = new Float32Array(POOL_SIZE * LINK_NEIGHBOURS);
 
-      for (let n = 0; n < count; n++) {
-        const p = pool[spawnIdx];
-        spawnIdx = (spawnIdx + 1) % PARTICLE_POOL;
-
-        // Rotate the wake vector by a small random spread.
-        const spread = (Math.random() - 0.5) * BURST_WAKE_SPREAD;
-        const cs = Math.cos(spread);
-        const sn = Math.sin(spread);
-        const dirX = wakeX * cs - wakeY * sn;
-        const dirY = wakeX * sn + wakeY * cs;
-
-        const mag = (0.4 + Math.random() * 0.4) * speed * BURST_SPEED_FACTOR;
-
-        p.x = fromX + (Math.random() - 0.5) * 6;
-        p.y = fromY + (Math.random() - 0.5) * 6;
-        p.vx = dirX * mag;
-        p.vy = dirY * mag;
-        p.baseR =
-          PARTICLE_MIN_R + Math.random() * (PARTICLE_MAX_R - PARTICLE_MIN_R);
-        p.r = p.baseR;
-        p.alpha = 0.35 + Math.random() * 0.20;
-        p.alive = true;
+    /* Insert candidate j (at distance d) into i's sorted nearest list. */
+    function insertNearest(i: number, j: number, d: number) {
+      const base = i * LINK_NEIGHBOURS;
+      for (let k = 0; k < LINK_NEIGHBOURS; k++) {
+        if (d < nearestDist[base + k]) {
+          for (let m = LINK_NEIGHBOURS - 1; m > k; m--) {
+            nearestDist[base + m] = nearestDist[base + m - 1];
+            nearest[base + m] = nearest[base + m - 1];
+          }
+          nearestDist[base + k] = d;
+          nearest[base + k] = j;
+          return;
+        }
       }
+    }
+
+    function spawn(dirVx: number, dirVy: number, speed: number) {
+      const dirX = dirVx / speed;
+      const dirY = dirVy / speed;
+
+      const p = pool[spawnIdx];
+      spawnIdx = (spawnIdx + 1) % POOL_SIZE;
+
+      // Rotate the cursor-direction vector by a random spread, so the
+      // emitted node leaves at a slight angle to the cursor's motion.
+      const angle = (Math.random() - 0.5) * SPAWN_SPREAD;
+      const cs = Math.cos(angle);
+      const sn = Math.sin(angle);
+      const ux = dirX * cs - dirY * sn;
+      const uy = dirX * sn + dirY * cs;
+      const mag =
+        (0.5 + Math.random() * 0.6) * speed * SPAWN_VELOCITY_FACTOR;
+
+      p.x = cursorX + (Math.random() - 0.5) * 4;
+      p.y = cursorY + (Math.random() - 0.5) * 4;
+      p.vx = ux * mag;
+      p.vy = uy * mag;
+      p.r = NODE_MIN_R + Math.random() * (NODE_MAX_R - NODE_MIN_R);
+      p.alpha = 1;
+      p.alive = true;
     }
 
     /* ---------- main loop ---------- */
@@ -308,129 +171,155 @@ export default function CursorGlow() {
     const tick = () => {
       rafId = requestAnimationFrame(tick);
 
-      /* cursor velocity (used both for wake direction and burst trigger) */
-      const cursorVx = targetX - prevTargetX;
-      const cursorVy = targetY - prevTargetY;
+      // Smooth the cursor toward its target -- adds a touch of inertia
+      // and avoids jitter from raw pointer samples.
+      cursorX += (targetX - cursorX) * 0.25;
+      cursorY += (targetY - cursorY) * 0.25;
+
+      const cursorVx = cursorX - prevCursorX;
+      const cursorVy = cursorY - prevCursorY;
       const cursorSpeed = Math.hypot(cursorVx, cursorVy);
-      prevTargetX = targetX;
-      prevTargetY = targetY;
+      prevCursorX = cursorX;
+      prevCursorY = cursorY;
 
-      /* core spring -- snappy, near-critically-damped */
-      core.vx += CORE_STIFFNESS * (targetX - core.x) - CORE_DAMPING * core.vx;
-      core.vy += CORE_STIFFNESS * (targetY - core.y) - CORE_DAMPING * core.vy;
-      core.x += core.vx;
-      core.y += core.vy;
+      const idle = cursorSpeed < IDLE_SPEED_THRESHOLD;
 
-      /* wake blob -- drags behind to form the teardrop silhouette */
-      trail.vx +=
-        TRAIL_STIFFNESS * (targetX - trail.x) - TRAIL_DAMPING * trail.vx;
-      trail.vy +=
-        TRAIL_STIFFNESS * (targetY - trail.y) - TRAIL_DAMPING * trail.vy;
-      trail.x += trail.vx;
-      trail.y += trail.vy;
-
-      /* shed wake droplets on real motion -- max 2 per frame, spawned
-       * from the wake position so they read as the trailing edge
-       * pinching off, not as cursor-centred sparks. */
-      if (cursorSpeed > BURST_THRESHOLD) {
-        const count = Math.min(Math.floor(cursorSpeed / 22), 2);
-        if (count > 0) {
-          burst(count, trail.x, trail.y, cursorVx, cursorVy, cursorSpeed);
+      /* ---------- emission ---------- */
+      if (!idle && cursorSpeed > SPAWN_SPEED_THRESHOLD) {
+        const count = Math.min(
+          Math.ceil(cursorSpeed / 5),
+          SPAWN_RATE_PER_FRAME,
+        );
+        for (let i = 0; i < count; i++) {
+          spawn(cursorVx, cursorVy, cursorSpeed);
         }
       }
 
-      /* update particles */
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      /* ---------- update nodes ---------- */
       let aliveCount = 0;
       for (const p of pool) {
         if (!p.alive) continue;
 
-        const dx = targetX - p.x;
-        const dy = targetY - p.y;
-        const dist = Math.hypot(dx, dy);
-        const spring =
-          dist < PARTICLE_NEAR_DIST
-            ? PARTICLE_SPRING_FAR +
-              (PARTICLE_SPRING_NEAR - PARTICLE_SPRING_FAR) *
-                (1 - dist / PARTICLE_NEAR_DIST)
-            : PARTICLE_SPRING_FAR;
+        // Soft random kick every frame -- with loose damping this
+        // produces a gentle wander/float instead of a dead drift.
+        p.vx += (Math.random() - 0.5) * WANDER_FORCE;
+        p.vy += (Math.random() - 0.5) * WANDER_FORCE;
 
-        p.vx += spring * dx;
-        p.vy += spring * dy;
+        if (idle) {
+          // No spring -- the existing shapes just float on their
+          // current momentum and dissolve in place.
+          p.alpha *= IDLE_FADE;
+          p.vx *= NODE_DAMPING_IDLE;
+          p.vy *= NODE_DAMPING_IDLE;
+        } else {
+          p.alpha *= NODE_FADE_MOVING;
+          p.vx *= NODE_DAMPING_MOVING;
+          p.vy *= NODE_DAMPING_MOVING;
+        }
 
-        p.vx += (Math.random() - 0.5) * PARTICLE_JITTER;
-        p.vy += (Math.random() - 0.5) * PARTICLE_JITTER;
-
-        p.vx *= PARTICLE_DAMPING;
-        p.vy *= PARTICLE_DAMPING;
         p.x += p.vx;
         p.y += p.vy;
 
-        if (dist < PARTICLE_MERGE_DIST) {
-          p.alpha *= 0.92;
-          p.r *= 0.95;
-        }
-
-        p.alpha *= 0.998;
-
-        if (p.alpha < 0.015 || p.r < 2) {
+        if (
+          p.alpha < 0.01 ||
+          p.x < -50 ||
+          p.x > w + 50 ||
+          p.y < -50 ||
+          p.y > h + 50
+        ) {
           p.alive = false;
           continue;
         }
         aliveCount++;
       }
 
-      /* ---------- pack blobs into uniform buffers ---------- */
-      const dprLocal = appliedDpr;
-      let slot = 0;
+      /* ---------- early-out: nothing to draw ---------- */
+      if (aliveCount === 0) {
+        ctx.clearRect(0, 0, w, h);
+        return;
+      }
 
-      // Slot 0: core (cyan). Shrinks slightly as particles scatter.
-      const shrink = Math.max(1 - aliveCount * 0.012, 0.55);
-      blobsBuf[0] = core.x * dprLocal;
-      blobsBuf[1] = core.y * dprLocal;
-      blobsBuf[2] = CORE_RADIUS * shrink * dprLocal;
-      blobsBuf[3] = CORE_INTENSITY;
-      colorsBuf[0] = CYAN[0];
-      colorsBuf[1] = CYAN[1];
-      colorsBuf[2] = CYAN[2];
-      slot++;
+      /* ---------- compute per-node k-nearest neighbours ---------- */
+      for (let i = 0; i < POOL_SIZE * LINK_NEIGHBOURS; i++) {
+        nearest[i] = -1;
+        nearestDist[i] = Infinity;
+      }
 
-      // Slot 1: wake (indigo, larger and softer; trails behind the core).
-      blobsBuf[4] = trail.x * dprLocal;
-      blobsBuf[5] = trail.y * dprLocal;
-      blobsBuf[6] = TRAIL_RADIUS * dprLocal;
-      blobsBuf[7] = TRAIL_INTENSITY;
-      colorsBuf[3] = INDIGO[0];
-      colorsBuf[4] = INDIGO[1];
-      colorsBuf[5] = INDIGO[2];
-      slot++;
-
-      // Slots 2..N: live particles.
-      for (const p of pool) {
-        if (!p.alive) continue;
-        const bi = slot * 4;
-        const ci = slot * 3;
-        blobsBuf[bi] = p.x * dprLocal;
-        blobsBuf[bi + 1] = p.y * dprLocal;
-        blobsBuf[bi + 2] = p.r * dprLocal;
-        blobsBuf[bi + 3] = p.alpha * PARTICLE_INTENSITY_SCALE;
-        colorsBuf[ci] = CYAN[0];
-        colorsBuf[ci + 1] = CYAN[1];
-        colorsBuf[ci + 2] = CYAN[2];
-        slot++;
+      for (let i = 0; i < POOL_SIZE; i++) {
+        const a = pool[i];
+        if (!a.alive) continue;
+        for (let j = i + 1; j < POOL_SIZE; j++) {
+          const b = pool[j];
+          if (!b.alive) continue;
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d > LINK_MAX_DIST) continue;
+          // Symmetric: each side considers the other as a candidate.
+          insertNearest(i, j, d);
+          insertNearest(j, i, d);
+        }
       }
 
       /* ---------- draw ---------- */
-      gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.uniform4fv(uBlobsLoc, blobsBuf);
-      gl.uniform3fv(uColorsLoc, colorsBuf);
-      gl.uniform1i(uBlobCountLoc, slot);
-      gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      ctx.clearRect(0, 0, w, h);
+
+      // Edges first so node dots sit on top of their lines.
+      ctx.lineWidth = 1;
+      const drawn = new Set<number>();
+      for (let i = 0; i < POOL_SIZE; i++) {
+        const a = pool[i];
+        if (!a.alive) continue;
+        const base = i * LINK_NEIGHBOURS;
+        for (let k = 0; k < LINK_NEIGHBOURS; k++) {
+          const j = nearest[base + k];
+          if (j < 0) continue;
+          // Dedupe undirected edges.
+          const key = i < j ? i * POOL_SIZE + j : j * POOL_SIZE + i;
+          if (drawn.has(key)) continue;
+          drawn.add(key);
+
+          const b = pool[j];
+          const d = nearestDist[base + k];
+          const distAlpha = 1 - d / LINK_MAX_DIST;
+          const alpha =
+            distAlpha * Math.min(a.alpha, b.alpha) * LINK_MAX_ALPHA;
+          if (alpha < 0.01) continue;
+          ctx.strokeStyle = `rgba(${COLOUR_LINK_RGB}, ${alpha.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+
+      // Nodes themselves -- small filled circles with per-node alpha.
+      for (const p of pool) {
+        if (!p.alive) continue;
+        const a = p.alpha * NODE_MAX_ALPHA;
+        if (a < 0.02) continue;
+        ctx.fillStyle = `rgba(${COLOUR_NODE_RGB}, ${a.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
     };
 
     const onMove = (e: PointerEvent) => {
       targetX = e.clientX;
       targetY = e.clientY;
+      // Snap on the first real move so we do not record a phantom
+      // sweep from the viewport centre to the cursor's first sample.
+      if (firstMove) {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+        prevCursorX = e.clientX;
+        prevCursorY = e.clientY;
+        firstMove = false;
+      }
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -440,8 +329,6 @@ export default function CursorGlow() {
       cancelAnimationFrame(rafId);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("resize", resize);
-      gl.deleteBuffer(quadBuf);
-      gl.deleteProgram(program);
     };
   }, []);
 
