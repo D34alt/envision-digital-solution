@@ -252,7 +252,7 @@ export default function Home() {
               </span>
             </a>
 
-            <nav className="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               <div className="flex w-max items-center gap-2 px-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
@@ -273,10 +273,10 @@ export default function Home() {
 
             <a
               href="#contact"
-              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 sm:h-11 sm:px-5"
+              className="ml-auto inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 md:ml-0"
             >
-              <span className="sm:hidden">Book</span>
-              <span className="hidden sm:inline xl:hidden">Book Strategy</span>
+              <span className="md:hidden">Book</span>
+              <span className="hidden md:inline xl:hidden">Book Strategy</span>
               <span className="hidden xl:inline">Book a Strategy Call</span>
               <ArrowRight className="h-4 w-4" />
             </a>

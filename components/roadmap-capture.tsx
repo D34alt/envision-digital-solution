@@ -25,7 +25,7 @@ export default function RoadmapCapture() {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <p className="text-sm leading-relaxed text-slate-300">
         Enter your email and we will send you our free 90-Day Marketing
         Clarity Plan, the same framework we use with clients.

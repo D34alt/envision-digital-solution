@@ -24,7 +24,7 @@ export default function CopyEmail() {
       <button
         type="button"
         onClick={handleCopy}
-        className="flex items-center gap-3 text-sm text-cyan-300 transition hover:text-cyan-200"
+        className="flex min-h-11 items-center gap-3 text-sm text-cyan-300 transition hover:text-cyan-200"
       >
         <Mail className="h-4 w-4 shrink-0" />
         {EMAIL}
