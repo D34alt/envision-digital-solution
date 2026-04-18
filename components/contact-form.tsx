@@ -17,7 +17,7 @@ const services = [
 ];
 
 const inputClass =
-  "w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-cyan-400/60 focus:ring-1 focus:ring-cyan-400/30";
+  "w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-base text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-cyan-400/60 focus:ring-1 focus:ring-cyan-400/30 sm:text-sm";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-slate-300";
 
@@ -48,7 +48,7 @@ export default function ContactForm({ source }: { source?: string }) {
   }
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form action={formAction} className="space-y-5" suppressHydrationWarning>
       {source && <input type="hidden" name="source" value={source} />}
       {state?.message && !state.success && (
         <p className="rounded-xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
@@ -70,6 +70,7 @@ export default function ContactForm({ source }: { source?: string }) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={inputClass}
+            suppressHydrationWarning
           />
           {state?.errors?.name && (
             <p className="mt-1.5 text-xs text-red-400">{state.errors.name}</p>
@@ -89,6 +90,7 @@ export default function ContactForm({ source }: { source?: string }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={inputClass}
+            suppressHydrationWarning
           />
           {state?.errors?.email && (
             <p className="mt-1.5 text-xs text-red-400">{state.errors.email}</p>
@@ -109,6 +111,7 @@ export default function ContactForm({ source }: { source?: string }) {
             value={business}
             onChange={(e) => setBusiness(e.target.value)}
             className={inputClass}
+            suppressHydrationWarning
           />
         </div>
 
@@ -122,6 +125,7 @@ export default function ContactForm({ source }: { source?: string }) {
             className={`${inputClass} appearance-none`}
             value={service}
             onChange={(e) => setService(e.target.value)}
+            suppressHydrationWarning
           >
             <option value="">
               Select a service (optional)
@@ -148,6 +152,7 @@ export default function ContactForm({ source }: { source?: string }) {
           value={enquiry}
           onChange={(e) => setEnquiry(e.target.value)}
           className={`${inputClass} resize-none`}
+          suppressHydrationWarning
         />
         {state?.errors?.enquiry && (
           <p className="mt-1.5 text-xs text-red-400">

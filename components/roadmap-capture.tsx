@@ -30,7 +30,11 @@ export default function RoadmapCapture() {
         Enter your email and we will send you our free 90-Day Marketing
         Clarity Plan, the same framework we use with clients.
       </p>
-      <form action={formAction} className="flex flex-col gap-3 sm:flex-row">
+      <form
+        action={formAction}
+        className="flex flex-col gap-3 sm:flex-row"
+        suppressHydrationWarning
+      >
         <input
           name="email"
           type="email"
@@ -39,6 +43,7 @@ export default function RoadmapCapture() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="h-12 flex-1 rounded-full border border-white/10 bg-slate-950/70 px-5 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-cyan-400/60 focus:ring-1 focus:ring-cyan-400/30"
+          suppressHydrationWarning
         />
         <button
           type="submit"
