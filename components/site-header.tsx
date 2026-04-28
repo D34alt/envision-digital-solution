@@ -16,7 +16,7 @@ import {
 
 const navItems = [
   { href: "/services", label: "Services", icon: Megaphone },
-  { href: "/location-strategy", label: "Local Strategy", icon: MapPin },
+  { href: "/location-strategy", label: "Location Strategy", icon: MapPin },
   { href: "/examples", label: "Examples", icon: BookOpen },
   { href: "/about", label: "About", icon: Info },
   { href: "/#contact", label: "Contact", icon: Mail },
@@ -98,21 +98,16 @@ export default function SiteHeader() {
         </Link>
 
         <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex w-max items-center gap-2 px-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-slate-950/60 px-3.5 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
-                >
-                  <Icon className="h-4 w-4 text-cyan-300" />
-                  {item.label}
-                </Link>
-              );
-            })}
+          <div className="flex w-max items-center gap-6 px-3">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="whitespace-nowrap text-sm font-medium text-slate-300 transition hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </nav>
 
