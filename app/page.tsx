@@ -5,6 +5,7 @@ import ContactForm from "@/components/contact-form";
 import CopyEmail from "@/components/copy-email";
 import RoadmapCapture from "@/components/roadmap-capture";
 import FaqItem from "@/components/faq-item";
+import SiteHeader from "@/components/site-header";
 import {
   AlertTriangle,
   ArrowRight,
@@ -44,13 +45,6 @@ const frictions = [
     description:
       "Impressions go up, clicks look fine, but revenue is flat. The real problem is not effort, it is unclear priorities.",
   },
-];
-
-const navItems = [
-  { href: "#examples", label: "Examples", icon: Share2 },
-  { href: "#services", label: "Services", icon: Megaphone },
-  { href: "#framework", label: "Framework", icon: Compass },
-  { href: "#contact", label: "Contact", icon: Mail },
 ];
 
 const clientScenarios = [
@@ -236,49 +230,7 @@ export default function Home() {
       <CursorGlow />
 
       <main className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
-        <header className="rounded-3xl border border-white/10 bg-slate-900/70 p-3 backdrop-blur sm:p-4">
-          <div className="flex items-center gap-3 lg:gap-4">
-            <a href="#" className="flex shrink-0 items-center gap-3 pr-1">
-              <Image
-                src="/branding/envision-logo-light.png"
-                alt="Envision Digital Solution"
-                width={220}
-                height={45}
-                className="h-8 w-auto sm:h-9"
-                priority
-              />
-            </a>
-
-            <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex w-max items-center gap-2 px-1">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-slate-950/60 px-3.5 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
-                    >
-                      <Icon className="h-4 w-4 text-cyan-300" />
-                      {item.label}
-                    </a>
-                  );
-                })}
-              </div>
-            </nav>
-
-            <a
-              href="#contact"
-              className="ml-auto inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 md:ml-0"
-            >
-              <span className="md:hidden">Book</span>
-              <span className="hidden md:inline xl:hidden">Book Strategy</span>
-              <span className="hidden xl:inline">Book a Strategy Call</span>
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </header>
+        <SiteHeader />
 
         <section className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div className="space-y-6">
