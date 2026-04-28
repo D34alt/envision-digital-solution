@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { ArrowRight, Coffee, Stethoscope, Rocket } from "lucide-react";
+import { Coffee, Stethoscope, Rocket } from "lucide-react";
 
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
+import LeadCaptureForm from "@/components/lead-capture-form";
 
 export const metadata: Metadata = {
   title: "Examples | Envision Digital Solution",
@@ -152,14 +153,11 @@ export default function ExamplesPage() {
               now, identify the highest-impact opportunities, and map out a
               practical path forward.
             </p>
-            <div className="mt-6">
-              <a
-                href="/#contact"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-              >
-                Book a Strategy Call
-                <ArrowRight className="h-4 w-4" />
-              </a>
+            <div className="mt-8">
+              <LeadCaptureForm
+                source="Examples Page CTA"
+                buttonLabel="Book a Strategy Call"
+              />
             </div>
           </div>
         </section>
