@@ -507,23 +507,73 @@ export default function Home() {
         </section>
 
         <section className="mt-20">
-          <div className={`${panelClass} p-6 sm:p-8`}>
-            <p className={chapterClass}>Ready to grow</p>
+          <div className="rounded-3xl border border-cyan-400/20 bg-slate-900/60 p-6 backdrop-blur sm:p-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <p className={chapterClass}>Trial offer</p>
+              <span className="rounded-full border border-cyan-400/30 bg-cyan-500/15 px-3 py-1 text-xs font-semibold text-cyan-300">
+                90 days
+              </span>
+            </div>
             <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
-              Ready to grow with more clarity?
+              Try paid ads for 3 months. You cover the spend, we handle everything else.
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
-              Book a strategy call and let&apos;s look at where your business is
-              now, where the opportunity is, and what needs to happen next.
+              Not sure if paid ads will work for your business? This trial is
+              designed to remove the risk from finding out. You set the budget,
+              we build and run the campaigns, and after 90 days you have real
+              data to make a decision with.
             </p>
-            <div className="mt-6">
-              <a
-                href="#contact"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-              >
-                Book a Strategy Call
-                <ArrowRight className="h-4 w-4" />
-              </a>
+            <div className="mt-8 grid gap-8 lg:grid-cols-2">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400">
+                  What we handle
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {[
+                    "Campaign strategy and audience targeting",
+                    "Ad copy and creative direction",
+                    "Google Ads and Meta Ads setup",
+                    "Weekly optimisation and bid management",
+                    "Plain-English reporting every week",
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-3">
+                      <CircleCheckBig className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                      <p className="text-sm leading-relaxed text-slate-200">
+                        {point}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400">
+                  How it works
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {[
+                    "Starts with a strategy call to align on goals and targeting",
+                    "You set the ad budget, we make it work as hard as possible",
+                    "90-day window with clear weekly milestones",
+                    "No lock-in contract after the trial period",
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-3">
+                      <CircleCheckBig className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                      <p className="text-sm leading-relaxed text-slate-200">
+                        {point}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <a
+                    href="#contact"
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+                  >
+                    Start with a strategy call
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>

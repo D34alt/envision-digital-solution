@@ -211,23 +211,45 @@ export default function LocationStrategyPage() {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* Free Snapshot Offer */}
         <section className="mt-20">
-          <div className={`${panelClass} p-6 sm:p-8`}>
-            <p className={chapterClass}>Get started</p>
+          <div className="rounded-3xl border border-cyan-400/20 bg-slate-900/60 p-6 backdrop-blur sm:p-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <p className={chapterClass}>Free offer</p>
+              <span className="rounded-full border border-cyan-400/30 bg-cyan-500/15 px-3 py-1 text-xs font-semibold text-cyan-300">
+                No cost, no obligation
+              </span>
+            </div>
             <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
-              Thinking of opening, expanding, or targeting a new area?
+              Get a free Location Strategy snapshot for your area.
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
-              Let&apos;s use data and strategy to help you make a smarter
-              decision.
+              Book a strategy call and we will put together a focused snapshot
+              of your local market. Where the opportunity is, who your
+              competitors are, and which areas are worth targeting first. You
+              keep it whether you proceed with us or not.
             </p>
-            <div className="mt-6">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {[
+                "Suburb and area opportunity summary",
+                "Nearby competitor overview",
+                "Local demand and search behaviour",
+                "Recommended target areas",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <CircleCheckBig className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                  <p className="text-sm leading-relaxed text-slate-200">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8">
               <a
                 href="/#contact"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
-                Book a Strategy Call
+                Claim your free snapshot
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
