@@ -14,6 +14,7 @@ const services = [
   "Conversion Journey Optimisation",
   "Email and CRM Nurture",
   "Website Development",
+  "Location Strategy",
 ];
 
 const inputClass =
