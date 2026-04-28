@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Coffee, Stethoscope, Rocket } from "lucide-react";
 
 import CursorGlow from "@/components/cursor-glow";
-import SiteHeader from "@/components/site-header";
-import SiteFooter from "@/components/site-footer";
+import ExamplesList from "@/components/examples-list";
 import LeadCaptureForm from "@/components/lead-capture-form";
+import SiteFooter from "@/components/site-footer";
+import SiteHeader from "@/components/site-header";
 
 export const metadata: Metadata = {
   title: "Examples | Envision Digital Solution",
@@ -12,46 +12,10 @@ export const metadata: Metadata = {
     "See how Envision Digital Solutions helps businesses grow through digital marketing, websites, and location strategy. Real-world scenarios for cafes, clinics, and new business owners.",
 };
 
-const examples = [
-  {
-    icon: Coffee,
-    tag: "Location Strategy + Digital Marketing",
-    title: "Local Cafe Expansion",
-    challenge:
-      "A cafe owner wants to open a second location but is unsure which suburb has the strongest opportunity.",
-    approach:
-      "We compare local demographics, nearby competitors, foot traffic patterns, accessibility, and marketing potential across the suburbs they are considering. Once we identify the strongest opportunity, we build a local launch strategy that includes Google Ads, local SEO, and suburb-targeted social media to drive awareness from day one.",
-    outcome:
-      "The owner makes a location decision backed by data, not gut feeling, and enters the market with a marketing plan already in place.",
-  },
-  {
-    icon: Stethoscope,
-    tag: "SEO + Paid Ads + Website",
-    title: "Allied Health Clinic Growth",
-    challenge:
-      "A clinic wants more enquiries from nearby suburbs but is not showing up in local search results, and their website is not converting visitors.",
-    approach:
-      "We review local search behaviour, competitor visibility, website structure, and suburb-based targeting. We rebuild key service pages around local intent, set up a Google Ads campaign targeting nearby postcodes, and improve the website to convert visitors into bookings more reliably.",
-    outcome:
-      "More qualified enquiries from nearby suburbs, improved search visibility, and a website that does a better job of turning interest into action.",
-  },
-  {
-    icon: Rocket,
-    tag: "Website + Strategy + Location",
-    title: "New Business Launch",
-    challenge:
-      "A new business owner needs a website, a local marketing plan, and clarity on which area to target first before they start spending on ads.",
-    approach:
-      "We start with a location analysis to identify which suburb or area has the strongest demand and the least competitive pressure. From there, we build a clean, professional website and a 90-day marketing plan that prioritises the highest-leverage channels for their situation, so they are spending money where it is most likely to return results.",
-    outcome:
-      "A new business that launches with a clear strategy, a strong online presence, and a focused target market, instead of guessing and hoping something sticks.",
-  },
-];
-
-const panelClass = "rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur";
-const cardClass =
-  "rounded-3xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur sm:p-8";
-const chapterClass = "text-xs font-medium uppercase tracking-[0.14em] text-cyan-300";
+const panelClass =
+  "rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur";
+const chapterClass =
+  "text-xs font-medium uppercase tracking-[0.14em] text-cyan-300";
 
 export default function ExamplesPage() {
   return (
@@ -82,65 +46,15 @@ export default function ExamplesPage() {
             </h1>
             <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
               These are the types of challenges we work through with our
-              clients. The names are illustrative, but the situations are ones
+              clients. Click any example to step through the full story, page
+              by page. The names are illustrative, but the situations are ones
               we see regularly.
             </p>
           </div>
         </section>
 
-        {/* Examples */}
-        <section className="mt-12 space-y-6">
-          {examples.map((example, index) => {
-            const Icon = example.icon;
-
-            return (
-              <article key={example.title} className={cardClass}>
-                <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
-                  <div className="lg:w-72 lg:shrink-0">
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/15 text-cyan-300">
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-cyan-300">
-                      {example.tag}
-                    </p>
-                    <h2 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-                      {example.title}
-                    </h2>
-                    <p className="mt-1 text-sm font-medium text-slate-400">
-                      Example {index + 1} of {examples.length}
-                    </p>
-                  </div>
-                  <div className="flex flex-1 flex-col gap-5">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
-                        The situation
-                      </p>
-                      <p className="mt-2 text-base leading-relaxed text-slate-300">
-                        {example.challenge}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
-                        How we approach it
-                      </p>
-                      <p className="mt-2 text-base leading-relaxed text-slate-300">
-                        {example.approach}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
-                        The result
-                      </p>
-                      <p className="mt-2 text-base leading-relaxed text-slate-300">
-                        {example.outcome}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </section>
+        {/* Examples (cards + paged story modal) */}
+        <ExamplesList />
 
         {/* CTA */}
         <section className="mt-20">

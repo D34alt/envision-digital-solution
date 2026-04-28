@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -32,12 +31,9 @@ const SCROLL_DELTA = 6;
 const TOP_REVEAL_THRESHOLD = 80;
 
 export default function SiteHeader() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-  // On the homepage we keep the contact CTA as an in-page anchor so the
-  // user simply scrolls to the contact section. Anywhere else, the CTA
-  // routes to the dedicated /contact page.
-  const ctaHref = isHome ? "/#contact" : "/contact";
+  // The contact CTA always routes to the dedicated /contact page, even
+  // from the homepage, so the click feels like a proper navigation.
+  const ctaHref = "/contact";
 
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

@@ -23,7 +23,6 @@
 }
 * {
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -53,4 +52,39 @@ a {
 ::selection {
   background: rgba(34, 211, 238, 0.22);
   color: #f8fafc;
+}
+
+@keyframes story-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes story-slide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.story-fade {
+  animation: story-fade 220ms ease-out;
+}
+
+.story-slide {
+  animation: story-slide 220ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-fade,
+  .story-slide {
+    animation: none;
+  }
 }
