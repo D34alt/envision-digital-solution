@@ -27,18 +27,21 @@ const services = [
     title: "Website Design and Development",
     description:
       "A website is only as valuable as the results it creates. We design and build websites that communicate clearly, load fast, and are structured to turn visitors into enquiries. Whether you are starting from scratch or rebuilding, we focus on a clean, professional result that actually works.",
+    href: "/services/website-design-and-development",
   },
   {
     icon: Search,
     title: "SEO and Content Strategy",
     description:
       "If your ideal customers are searching online and not finding you, we fix that. We build intent-led pages, optimise your site structure, and develop content that brings qualified, local traffic to your business over time.",
+    href: "/services/seo-and-content-strategy",
   },
   {
     icon: Megaphone,
     title: "Paid Ads Management",
     description:
       "We manage Google Ads and Meta Ads campaigns that target the right people with the right message. No wasted clicks on low-fit audiences. We focus on lead quality, not just volume, and optimise continuously to improve results.",
+    href: "/services/paid-ads-management",
   },
   {
     icon: Share2,
@@ -134,7 +137,7 @@ export default function ServicesPage() {
                       {service.description}
                     </p>
                     <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-cyan-300 transition group-hover:text-cyan-200">
-                      Learn more about Location Strategy
+                      Learn more
                       <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </a>

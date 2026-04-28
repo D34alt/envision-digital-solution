@@ -16,9 +16,18 @@ const quickLinks = [
 ];
 
 const coreServices = [
-  { href: "/services", label: "Website Design & Development" },
-  { href: "/services", label: "SEO & Content Strategy" },
-  { href: "/services", label: "Paid Ads Management" },
+  {
+    href: "/services/website-design-and-development",
+    label: "Website Design & Development",
+  },
+  {
+    href: "/services/seo-and-content-strategy",
+    label: "SEO & Content Strategy",
+  },
+  {
+    href: "/services/paid-ads-management",
+    label: "Paid Ads Management",
+  },
   { href: "/location-strategy", label: "Location Strategy" },
 ];
 

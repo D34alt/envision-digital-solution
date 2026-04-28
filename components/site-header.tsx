@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
-  FileText,
   Info,
   Mail,
   MapPin,
@@ -20,7 +19,6 @@ const navItems = [
   { href: "/services", label: "Services", icon: Megaphone },
   { href: "/location-strategy", label: "Location Strategy", icon: MapPin },
   { href: "/examples", label: "Examples", icon: BookOpen },
-  { href: "/resources", label: "Resources", icon: FileText },
   { href: "/about", label: "About", icon: Info },
   { href: "/contact", label: "Contact", icon: Mail },
 ];

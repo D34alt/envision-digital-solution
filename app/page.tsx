@@ -8,6 +8,7 @@ import FaqItem from "@/components/faq-item";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import LeadCaptureForm from "@/components/lead-capture-form";
+import { HomeIllustration } from "@/components/service-illustrations";
 import {
   AlertTriangle,
   ArrowRight,
@@ -433,6 +434,34 @@ export default function Home() {
                 </article>
               );
             })}
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="relative order-2 lg:order-1">
+              <div
+                aria-hidden
+                className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-cyan-500/15 via-indigo-500/10 to-transparent blur-2xl"
+              />
+              <div className="aspect-square overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur">
+                <HomeIllustration />
+              </div>
+            </div>
+            <div className="order-1 space-y-4 lg:order-2">
+              <p className={chapterClass}>Interlude</p>
+              <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+                One connected system, not scattered tactics.
+              </h2>
+              <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
+                SEO, paid ads, websites, location strategy, and content all
+                share the same hub: a clear understanding of your buyer, your
+                market, and the next decision they need to make. When every
+                channel reinforces that, marketing stops feeling like a
+                collection of efforts and starts behaving like a system that
+                pulls in the same direction.
+              </p>
+            </div>
           </div>
         </section>
 

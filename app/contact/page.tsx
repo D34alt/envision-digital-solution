@@ -10,6 +10,7 @@ import CopyEmail from "@/components/copy-email";
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import { ContactIllustration } from "@/components/service-illustrations";
 
 const siteUrl = "https://envisiondigitalsolutions.com.au";
 
@@ -82,8 +83,8 @@ export default function ContactPage() {
         <SiteHeader />
 
         {/* Hero */}
-        <section className="mt-12 sm:mt-16">
-          <div className="max-w-3xl space-y-4">
+        <section className="mt-12 grid gap-10 sm:mt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="space-y-6">
             <p className={chapterClass}>Contact</p>
             <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
               Let us help you grow with more clarity.
@@ -93,6 +94,16 @@ export default function ContactPage() {
               will reply with a strategy conversation, usually within one
               business day.
             </p>
+          </div>
+
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-cyan-500/15 via-indigo-500/10 to-transparent blur-2xl"
+            />
+            <div className="aspect-square overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur">
+              <ContactIllustration />
+            </div>
           </div>
         </section>
 
