@@ -100,15 +100,14 @@ export default function SiteHeader() {
         <div aria-hidden className="hidden h-5 w-px shrink-0 bg-white/15 md:block" />
 
         <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex w-max items-center gap-6 px-3">
+          <div className="flex w-max items-center gap-1 px-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative whitespace-nowrap text-sm font-medium text-slate-200 transition-colors duration-200 hover:text-cyan-300"
+                className="relative rounded-full px-4 py-2 text-sm font-medium text-slate-300 transition-all duration-200 hover:bg-cyan-500/10 hover:text-cyan-300 hover:shadow-[0_0_12px_rgba(6,182,212,0.15)]"
               >
                 {item.label}
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
           </div>
