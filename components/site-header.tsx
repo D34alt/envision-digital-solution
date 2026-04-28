@@ -1,22 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
-  Compass,
+  BookOpen,
+  Home,
+  Info,
   Mail,
+  MapPin,
   Megaphone,
   Menu,
-  Share2,
   X,
 } from "lucide-react";
 
 const navItems = [
-  { href: "#examples", label: "Examples", icon: Share2 },
-  { href: "#services", label: "Services", icon: Megaphone },
-  { href: "#framework", label: "Framework", icon: Compass },
-  { href: "#contact", label: "Contact", icon: Mail },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/services", label: "Services", icon: Megaphone },
+  { href: "/location-strategy", label: "Location Strategy", icon: MapPin },
+  { href: "/examples", label: "Examples", icon: BookOpen },
+  { href: "/about", label: "About", icon: Info },
+  { href: "/#contact", label: "Contact", icon: Mail },
 ];
 
 // Minimum vertical scroll delta (px) before we toggle the hide/show state.
@@ -83,7 +88,7 @@ export default function SiteHeader() {
       }`}
     >
       <div className="flex items-center gap-3 lg:gap-4">
-        <a href="#" className="flex shrink-0 items-center gap-3 pr-1">
+        <Link href="/" className="flex shrink-0 items-center gap-3 pr-1">
           <Image
             src="/branding/envision-logo-light.png"
             alt="Envision Digital Solution"
@@ -92,7 +97,7 @@ export default function SiteHeader() {
             className="h-8 w-auto sm:h-9"
             priority
           />
-        </a>
+        </Link>
 
         <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex w-max items-center gap-2 px-1">
@@ -100,28 +105,28 @@ export default function SiteHeader() {
               const Icon = item.icon;
 
               return (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-slate-950/60 px-3.5 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
                 >
                   <Icon className="h-4 w-4 text-cyan-300" />
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </div>
         </nav>
 
-        <a
-          href="#contact"
+        <Link
+          href="/#contact"
           className="ml-auto inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 md:ml-0"
         >
           <span className="md:hidden">Book</span>
           <span className="hidden md:inline xl:hidden">Book Strategy</span>
           <span className="hidden xl:inline">Book a Strategy Call</span>
           <ArrowRight className="h-4 w-4" />
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -155,14 +160,14 @@ export default function SiteHeader() {
 
               return (
                 <li key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
                     className="flex h-12 items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/60 px-4 text-sm font-medium text-slate-200 transition hover:border-cyan-400/55 hover:bg-cyan-500/10 hover:text-white"
                   >
                     <Icon className="h-4 w-4 text-cyan-300" />
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               );
             })}

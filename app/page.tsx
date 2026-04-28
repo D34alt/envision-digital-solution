@@ -13,7 +13,6 @@ import {
   CircleCheckBig,
   Code2,
   Compass,
-  Crosshair,
   Gauge,
   Mail,
   Map,
@@ -21,9 +20,7 @@ import {
   MousePointerClick,
   Network,
   Rocket,
-  Search,
   Share2,
-  Workflow,
 } from "lucide-react";
 
 const frictions = [
@@ -71,39 +68,24 @@ const clientScenarios = [
 const servicePillars = [
   {
     icon: Megaphone,
-    title: "Paid Ads Management",
+    title: "Digital Marketing",
     description:
-      "For businesses tired of paying for low-fit clicks, we tighten targeting, messaging, and offer alignment to improve lead quality.",
-  },
-  {
-    icon: Search,
-    title: "SEO and Content Strategy",
-    description:
-      "If your ideal buyers are searching and not finding you, we build intent-led pages and content that bring qualified traffic.",
-  },
-  {
-    icon: Share2,
-    title: "Social Media Growth",
-    description:
-      "When social feels busy but not effective, we create a clear content rhythm that builds trust and drives real enquiry behaviour.",
-  },
-  {
-    icon: MousePointerClick,
-    title: "Conversion Journey Optimisation",
-    description:
-      "If users click but do not convert, we simplify key journeys, improve calls to action, and remove friction in decision moments.",
-  },
-  {
-    icon: Mail,
-    title: "Email and CRM Nurture",
-    description:
-      "For leads that go quiet after first contact, we build practical nurture journeys that keep conversations moving toward action.",
+      "Reach the right people with SEO, paid ads, social media, and content strategies designed to generate better enquiries.",
+    href: "/services",
   },
   {
     icon: Code2,
-    title: "Website Development",
+    title: "Websites and Conversion",
     description:
-      "If you already have a brand direction, wireframe, or reference style, we build fast, conversion-focused websites and landing pages with clean implementation.",
+      "Build a stronger online presence with websites and landing pages designed to look professional, communicate clearly, and turn visitors into leads.",
+    href: "/services",
+  },
+  {
+    icon: Map,
+    title: "Location Strategy",
+    description:
+      "Understand where your best opportunities are before spending money on marketing, opening a new location, or expanding into a new area.",
+    href: "/location-strategy",
   },
 ];
 
@@ -131,27 +113,6 @@ const frameworkSteps = [
     title: "Optimise Weekly",
     description:
       "We track behaviour, refine creative, and reallocate effort to what is genuinely improving lead quality.",
-  },
-];
-
-const differentiators = [
-  {
-    icon: Crosshair,
-    title: "Commercial focus from day one",
-    description:
-      "We do not chase vanity metrics. We focus on enquiries, conversion intent, and measurable business outcomes.",
-  },
-  {
-    icon: Workflow,
-    title: "Connected marketing, not random tactics",
-    description:
-      "Your channels are planned as one system, so each touchpoint supports the next instead of competing for attention.",
-  },
-  {
-    icon: CircleCheckBig,
-    title: "Clear reporting you can actually use",
-    description:
-      "You get straightforward updates, what changed, why it changed, and what we are doing next.",
   },
 ];
 
@@ -243,32 +204,32 @@ export default function Home() {
                 className="h-6 w-6 rounded-full"
               />
               <p className="text-xs font-medium uppercase tracking-[0.12em]">
-                Digital marketing that drives real growth
+                Digital marketing, websites, and location strategy
               </p>
             </div>
             <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
-              If marketing feels busy but sales still feel inconsistent, you
-              are not the problem, your system is.
+              Digital marketing, websites, and location strategy for businesses
+              ready to grow smarter.
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              You might be posting content, running ads, and trying to improve
-              SEO, yet still wondering where the next qualified enquiry is
-              coming from. We help you build a clear, connected marketing system
-              that turns effort into predictable pipeline growth.
+              We help businesses improve their online presence, attract
+              better-fit customers, and make smarter growth decisions using
+              digital marketing, conversion strategy, and location-based
+              insights.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
-                href="#services"
+                href="/#contact"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
-                Explore Services
+                Book a Strategy Call
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
-                href="#examples"
+                href="/services"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/60 hover:text-white"
               >
-                See Real-World Examples
+                Explore Services
               </a>
             </div>
           </div>
@@ -381,27 +342,35 @@ export default function Home() {
 
 <section id="services" className="mt-20 scroll-mt-8">
           <div className="max-w-3xl space-y-3">
-            <p className={chapterClass}>Act 3: The services</p>
+            <p className={chapterClass}>What we do</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              How we solve these problems in practice
+              Three ways we help businesses grow smarter
             </h2>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {servicePillars.map((service) => {
               const Icon = service.icon;
 
               return (
-                <article key={service.title} className={cardClass}>
+                <a
+                  key={service.title}
+                  href={service.href}
+                  className={`${cardClass} group flex flex-col`}
+                >
                   <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-white">
                     {service.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-300 sm:text-base">
                     {service.description}
                   </p>
-                </article>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-cyan-300 transition group-hover:text-cyan-200">
+                    Learn more
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                </a>
               );
             })}
           </div>
@@ -439,28 +408,17 @@ export default function Home() {
         </section>
 
         <section className="mt-20">
-          <div className="max-w-3xl space-y-3">
-            <p className={chapterClass}>Act 5: Why Envision</p>
-            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              Why clients stay with us long-term
+          <div className={`${panelClass} p-6 sm:p-8`}>
+            <p className={chapterClass}>Why Envision</p>
+            <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
+              Stop guessing. Start growing with clarity.
             </h2>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {differentiators.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <article key={item.title} className={cardClass}>
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                    {item.description}
-                  </p>
-                </article>
-              );
-            })}
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              Most businesses guess where to advertise, who to target, or where
+              to grow next. We combine digital marketing, website strategy, and
+              location insights to help businesses make smarter decisions before
+              they spend.
+            </p>
           </div>
         </section>
 
@@ -501,6 +459,28 @@ export default function Home() {
                 answer={item.answer}
               />
             ))}
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className={`${panelClass} p-6 sm:p-8`}>
+            <p className={chapterClass}>Ready to grow</p>
+            <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
+              Ready to grow with more clarity?
+            </h2>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
+              Book a strategy call and let&apos;s look at where your business is
+              now, where the opportunity is, and what needs to happen next.
+            </p>
+            <div className="mt-6">
+              <a
+                href="#contact"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+              >
+                Book a Strategy Call
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </section>
 

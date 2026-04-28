@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://envisiondigitalsolutions.com.au";
-const siteTitle = "Envision Digital Solution";
+const siteTitle = "Envision Digital Solution | Digital Marketing, Websites & Location Strategy Melbourne";
 const siteDescription =
-  "Envision Digital Solution builds modern, intuitive websites for growing businesses.";
+  "Envision Digital Solutions helps businesses grow through digital marketing, websites, automation, and location strategy. Serving Melbourne and beyond.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
