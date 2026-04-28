@@ -247,9 +247,6 @@ export default function Home() {
                 className="h-8 w-auto sm:h-9"
                 priority
               />
-              <span className="hidden rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-cyan-300 2xl:inline-flex">
-                Growth partner
-              </span>
             </a>
 
             <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
