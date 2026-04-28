@@ -718,6 +718,374 @@ export function LocationStrategyIllustration() {
   );
 }
 
+/* ---------- Services overview / Toolkit ---------- */
+export function ServicesIllustration() {
+  const id = "services";
+
+  /* 3x3 grid centred at (200,200), 110px between tile centres. */
+  const tiles = [
+    { cx: 90, cy: 90 },
+    { cx: 200, cy: 90 },
+    { cx: 310, cy: 90 },
+    { cx: 90, cy: 200 },
+    { cx: 310, cy: 200 },
+    { cx: 90, cy: 310 },
+    { cx: 200, cy: 310 },
+    { cx: 310, cy: 310 },
+  ];
+
+  return (
+    <svg
+      viewBox="0 0 400 400"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Stylised three-by-three grid of service tiles surrounding a glowing strategy core"
+      className="h-full w-full"
+    >
+      {SHARED_DEFS(id)}
+      <rect width="400" height="400" fill={`url(#${id}-bg)`} />
+      <circle cx="200" cy="200" r="190" fill={`url(#${id}-glow)`} />
+
+      {/* Connection dots from centre to adjacent tiles (cross pattern) */}
+      <g
+        stroke="rgba(34,211,238,0.45)"
+        strokeWidth="1.2"
+        strokeDasharray="2 4"
+        strokeLinecap="round"
+      >
+        <line x1="200" y1="200" x2="200" y2="90" />
+        <line x1="200" y1="200" x2="310" y2="200" />
+        <line x1="200" y1="200" x2="200" y2="310" />
+        <line x1="200" y1="200" x2="90" y2="200" />
+      </g>
+
+      {/* Diagonal connector hints */}
+      <g
+        stroke="rgba(99,102,241,0.30)"
+        strokeWidth="1"
+        strokeDasharray="2 5"
+        strokeLinecap="round"
+      >
+        <line x1="200" y1="200" x2="90" y2="90" />
+        <line x1="200" y1="200" x2="310" y2="90" />
+        <line x1="200" y1="200" x2="90" y2="310" />
+        <line x1="200" y1="200" x2="310" y2="310" />
+      </g>
+
+      {/* Outer service tiles */}
+      <g>
+        {tiles.map((t) => (
+          <rect
+            key={`tile-${t.cx}-${t.cy}`}
+            x={t.cx - 39}
+            y={t.cy - 39}
+            width="78"
+            height="78"
+            rx="14"
+            fill="rgba(15,23,42,0.95)"
+            stroke="rgba(34,211,238,0.30)"
+            strokeWidth="1"
+          />
+        ))}
+      </g>
+
+      {/* Tile 1: Website (top-left) */}
+      <g transform="translate(90 90)">
+        <rect
+          x="-18"
+          y="-12"
+          width="36"
+          height="24"
+          rx="3"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="1.6"
+        />
+        <line
+          x1="-18"
+          y1="-5"
+          x2="18"
+          y2="-5"
+          stroke="#22d3ee"
+          strokeWidth="1"
+        />
+        <circle cx="-13" cy="-9" r="1" fill="#22d3ee" />
+        <circle cx="-9" cy="-9" r="1" fill="#22d3ee" />
+        <circle cx="-5" cy="-9" r="1" fill="#22d3ee" />
+        <line
+          x1="-12"
+          y1="1"
+          x2="8"
+          y2="1"
+          stroke="rgba(34,211,238,0.55)"
+          strokeWidth="1"
+        />
+        <line
+          x1="-12"
+          y1="6"
+          x2="4"
+          y2="6"
+          stroke="rgba(34,211,238,0.40)"
+          strokeWidth="1"
+        />
+      </g>
+
+      {/* Tile 2: Search (top-centre) */}
+      <g transform="translate(200 90)">
+        <circle
+          cx="-3"
+          cy="-3"
+          r="11"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="2"
+        />
+        <line
+          x1="5"
+          y1="5"
+          x2="13"
+          y2="13"
+          stroke="#22d3ee"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </g>
+
+      {/* Tile 3: Megaphone / Ads (top-right) */}
+      <g transform="translate(310 90)">
+        <path
+          d="M -16 -4 L 6 -12 L 6 12 L -16 4 Z"
+          fill="rgba(34,211,238,0.20)"
+          stroke="#22d3ee"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+        <rect
+          x="6"
+          y="-8"
+          width="6"
+          height="16"
+          rx="2"
+          fill="#22d3ee"
+        />
+        <line
+          x1="-12"
+          y1="4"
+          x2="-12"
+          y2="12"
+          stroke="#22d3ee"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </g>
+
+      {/* Tile 4: Location pin (middle-left) */}
+      <g transform="translate(90 200)">
+        <path
+          d="M 0 -14 C -8 -14, -14 -8, -14 -1 C -14 8, 0 14, 0 14 C 0 14, 14 8, 14 -1 C 14 -8, 8 -14, 0 -14 Z"
+          fill="url(#services-accent)"
+          stroke="#22d3ee"
+          strokeWidth="1.2"
+        />
+        <circle cx="0" cy="-3" r="4" fill="#0a1531" />
+      </g>
+
+      {/* Centre tile: Strategy core (highlighted, slightly larger than the
+          surrounding tiles to read as the focal point) */}
+      <g>
+        <rect
+          x="156"
+          y="156"
+          width="88"
+          height="88"
+          rx="16"
+          fill="rgba(15,23,42,0.96)"
+          stroke="#22d3ee"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="200"
+          cy="200"
+          r="30"
+          fill="rgba(34,211,238,0.14)"
+          stroke="rgba(34,211,238,0.55)"
+          strokeWidth="1.4"
+        />
+        <circle
+          cx="200"
+          cy="200"
+          r="18"
+          fill="url(#services-accent)"
+          stroke="#22d3ee"
+          strokeWidth="1.2"
+        />
+        {/* Sparkle rays */}
+        <g
+          stroke="#22d3ee"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        >
+          <line x1="200" y1="178" x2="200" y2="170" />
+          <line x1="200" y1="222" x2="200" y2="230" />
+          <line x1="178" y1="200" x2="170" y2="200" />
+          <line x1="222" y1="200" x2="230" y2="200" />
+          <line x1="185" y1="185" x2="180" y2="180" />
+          <line x1="215" y1="185" x2="220" y2="180" />
+          <line x1="185" y1="215" x2="180" y2="220" />
+          <line x1="215" y1="215" x2="220" y2="220" />
+        </g>
+        <circle cx="200" cy="200" r="5" fill="#0a1531" />
+      </g>
+
+      {/* Tile 5 (skipped centre): Bar chart (middle-right) */}
+      <g transform="translate(310 200)">
+        <line
+          x1="-15"
+          y1="13"
+          x2="15"
+          y2="13"
+          stroke="rgba(255,255,255,0.30)"
+          strokeWidth="1"
+        />
+        <rect
+          x="-13"
+          y="3"
+          width="6"
+          height="10"
+          rx="1"
+          fill="rgba(99,102,241,0.7)"
+        />
+        <rect
+          x="-3"
+          y="-4"
+          width="6"
+          height="17"
+          rx="1"
+          fill="rgba(34,211,238,0.65)"
+        />
+        <rect
+          x="7"
+          y="-11"
+          width="6"
+          height="24"
+          rx="1"
+          fill="#22d3ee"
+        />
+      </g>
+
+      {/* Tile 6: Email (bottom-left) */}
+      <g transform="translate(90 310)">
+        <rect
+          x="-16"
+          y="-10"
+          width="32"
+          height="22"
+          rx="3"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M -16 -8 L 0 4 L 16 -8"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+
+      {/* Tile 7: Automation / Workflow (bottom-centre) */}
+      <g transform="translate(200 310)">
+        <circle
+          cx="-12"
+          cy="0"
+          r="5"
+          fill="rgba(34,211,238,0.30)"
+          stroke="#22d3ee"
+          strokeWidth="1.4"
+        />
+        <circle
+          cx="0"
+          cy="-8"
+          r="5"
+          fill="#22d3ee"
+        />
+        <circle
+          cx="12"
+          cy="4"
+          r="5"
+          fill="rgba(34,211,238,0.30)"
+          stroke="#22d3ee"
+          strokeWidth="1.4"
+        />
+        <line
+          x1="-8"
+          y1="-2"
+          x2="-3"
+          y2="-6"
+          stroke="#22d3ee"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+        <line
+          x1="4"
+          y1="-5"
+          x2="9"
+          y2="1"
+          stroke="#22d3ee"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+      </g>
+
+      {/* Tile 8: Share / Social (bottom-right) */}
+      <g transform="translate(310 310)">
+        <circle
+          cx="-10"
+          cy="-8"
+          r="5"
+          fill="#22d3ee"
+        />
+        <circle
+          cx="10"
+          cy="-2"
+          r="5"
+          fill="rgba(34,211,238,0.55)"
+          stroke="#22d3ee"
+          strokeWidth="1.2"
+        />
+        <circle
+          cx="-6"
+          cy="10"
+          r="5"
+          fill="rgba(99,102,241,0.7)"
+          stroke="#22d3ee"
+          strokeWidth="1.2"
+        />
+        <line
+          x1="-6"
+          y1="-6"
+          x2="6"
+          y2="-3"
+          stroke="rgba(34,211,238,0.55)"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+        <line
+          x1="-8"
+          y1="-4"
+          x2="-6"
+          y2="5"
+          stroke="rgba(34,211,238,0.55)"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+      </g>
+    </svg>
+  );
+}
+
 /* ---------- Home / Connected system ---------- */
 export function HomeIllustration() {
   const id = "home";

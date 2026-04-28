@@ -14,6 +14,7 @@ import {
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import { ServicesIllustration } from "@/components/service-illustrations";
 
 export const metadata: Metadata = {
   title: "Services | Envision Digital Solution",
@@ -101,8 +102,8 @@ export default function ServicesPage() {
       <main className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
         <SiteHeader />
 
-        <section className="mt-12 sm:mt-16">
-          <div className="max-w-3xl space-y-4">
+        <section className="mt-12 grid gap-10 sm:mt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="space-y-4">
             <p className={chapterClass}>Services</p>
             <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
               Everything you need to grow smarter.
@@ -112,6 +113,16 @@ export default function ServicesPage() {
               strategy, we help businesses build a stronger digital foundation
               and make smarter growth decisions.
             </p>
+          </div>
+
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-cyan-500/15 via-indigo-500/10 to-transparent blur-2xl"
+            />
+            <div className="aspect-square overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur">
+              <ServicesIllustration />
+            </div>
           </div>
         </section>
 
