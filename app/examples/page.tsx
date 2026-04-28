@@ -3,6 +3,7 @@ import { Coffee, Stethoscope, Rocket } from "lucide-react";
 
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 import LeadCaptureForm from "@/components/lead-capture-form";
 
 export const metadata: Metadata = {
@@ -162,10 +163,7 @@ export default function ExamplesPage() {
           </div>
         </section>
 
-        <footer className="mt-10 text-center text-xs text-slate-500 sm:text-sm">
-          &copy; {new Date().getFullYear()} Envision Digital Solution. All
-          rights reserved.
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   );

@@ -9,6 +9,7 @@ import ContactForm from "@/components/contact-form";
 import CopyEmail from "@/components/copy-email";
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 
 const siteUrl = "https://envisiondigitalsolutions.com.au";
 
@@ -142,10 +143,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <footer className="mt-10 text-center text-xs text-slate-500 sm:text-sm">
-          &copy; {new Date().getFullYear()} Envision Digital Solution. All
-          rights reserved.
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   );

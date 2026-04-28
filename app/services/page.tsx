@@ -13,6 +13,7 @@ import {
 
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "Services | Envision Digital Solution",
@@ -180,10 +181,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        <footer className="mt-10 text-center text-xs text-slate-500 sm:text-sm">
-          &copy; {new Date().getFullYear()} Envision Digital Solution. All
-          rights reserved.
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   );

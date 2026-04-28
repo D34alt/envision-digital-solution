@@ -20,7 +20,7 @@ export default function CopyEmail() {
   }, []);
 
   return (
-    <div className="relative inline-flex flex-col items-start pt-2">
+    <div className="relative inline-flex flex-col items-start">
       <button
         type="button"
         onClick={handleCopy}

@@ -6,6 +6,7 @@ import CopyEmail from "@/components/copy-email";
 import RoadmapCapture from "@/components/roadmap-capture";
 import FaqItem from "@/components/faq-item";
 import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 import LeadCaptureForm from "@/components/lead-capture-form";
 import {
   AlertTriangle,
@@ -442,8 +443,10 @@ export default function Home() {
               What makes our approach different
             </h2>
             <p className="text-base leading-relaxed text-slate-400">
-              Most agencies sell tactics. We sell clarity. Here is what that
-              looks like in practice.
+              Most businesses guess where to advertise, who to target, or where
+              to grow next. We combine digital marketing, website strategy, and
+              location insights to help businesses make smarter decisions
+              before they spend.
             </p>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -485,6 +488,28 @@ export default function Home() {
                 ))}
               </ul>
               <RoadmapCapture />
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className={`${panelClass} p-6 sm:p-8`}>
+            <p className={chapterClass}>Take the next step</p>
+            <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
+              Ready to grow with more clarity?
+            </h2>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
+              Book a strategy call and let&apos;s look at where your business
+              is now, where the opportunity is, and what needs to happen next.
+            </p>
+            <div className="mt-6">
+              <a
+                href="/#contact"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+              >
+                Book a Strategy Call
+                <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </section>
@@ -596,10 +621,7 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="mt-10 text-center text-xs text-slate-500 sm:text-sm">
-          © {new Date().getFullYear()} Envision Digital Solution. All rights
-          reserved.
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   );

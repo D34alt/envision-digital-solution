@@ -4,6 +4,7 @@ import Image from "next/image";
 import { CircleCheckBig } from "lucide-react";
 import CursorGlow from "@/components/cursor-glow";
 import ContactForm from "@/components/contact-form";
+import SiteFooter from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "Your Next Step | Envision Digital Solution",
@@ -108,10 +109,7 @@ export default async function WelcomePage({
           </div>
         </section>
 
-        <footer className="mt-10 text-center text-xs text-slate-500 sm:text-sm">
-          &copy; {new Date().getFullYear()} Envision Digital Solution. All
-          rights reserved.
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   );
