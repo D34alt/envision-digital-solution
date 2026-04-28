@@ -16,7 +16,7 @@ import {
 
 const navItems = [
   { href: "/services", label: "Services", icon: Megaphone },
-  { href: "/location-strategy", label: "Location", icon: MapPin },
+  { href: "/location-strategy", label: "Local Strategy", icon: MapPin },
   { href: "/examples", label: "Examples", icon: BookOpen },
   { href: "/about", label: "About", icon: Info },
   { href: "/#contact", label: "Contact", icon: Mail },
