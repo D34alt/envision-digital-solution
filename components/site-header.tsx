@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
-  Home,
   Info,
   Mail,
   MapPin,
@@ -16,9 +15,8 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Home", icon: Home },
   { href: "/services", label: "Services", icon: Megaphone },
-  { href: "/location-strategy", label: "Location Strategy", icon: MapPin },
+  { href: "/location-strategy", label: "Location", icon: MapPin },
   { href: "/examples", label: "Examples", icon: BookOpen },
   { href: "/about", label: "About", icon: Info },
   { href: "/#contact", label: "Contact", icon: Mail },
