@@ -91,6 +91,7 @@ export async function submitLeadCapture(
         }),
         resend.emails.send({
           from: process.env.RESEND_FROM_EMAIL ?? "noreply@envisionds.com.au",
+          replyTo: "hello@envisionds.com.au",
           to: email,
           subject: confirmation.subject,
           text: confirmation.body,
