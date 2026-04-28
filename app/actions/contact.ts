@@ -24,6 +24,93 @@ export type RoadmapCaptureState = {
   error?: string;
 } | null;
 
+export type LeadCaptureState = {
+  success: boolean;
+  message: string;
+  error?: string;
+} | null;
+
+export async function submitLeadCapture(
+  _prevState: LeadCaptureState,
+  formData: FormData,
+): Promise<LeadCaptureState> {
+  const email = (formData.get("email") as string)?.trim();
+  const source = (formData.get("source") as string) ?? "Website";
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return {
+      success: false,
+      message: "Please enter a valid email address.",
+      error: "Please enter a valid email address.",
+    };
+  }
+
+  const confirmationCopy: Record<string, { subject: string; body: string }> = {
+    "Paid Ads Trial": {
+      subject: "Your 90-day paid ads trial enquiry — Envision Digital Solution",
+      body: [
+        "Thanks for your interest in our 90-day paid ads trial.",
+        "",
+        "We will be in touch shortly to set up a strategy call, align on your goals, and get things moving. In the meantime, feel free to reply to this email with any questions.",
+        "",
+        "Cheers,",
+        "The Envision Digital Solution Team",
+      ].join("\n"),
+    },
+    "Location Strategy Snapshot": {
+      subject: "Your free Location Strategy snapshot — Envision Digital Solution",
+      body: [
+        "Thanks for requesting your free Location Strategy snapshot.",
+        "",
+        "We will put together a focused look at your local market — where the opportunity is, who your competitors are, and which areas are worth targeting first — and be in touch shortly.",
+        "",
+        "Cheers,",
+        "The Envision Digital Solution Team",
+      ].join("\n"),
+    },
+  };
+
+  const confirmation = confirmationCopy[source] ?? {
+    subject: "Thanks for your enquiry — Envision Digital Solution",
+    body: ["Thanks for getting in touch. We will be in touch shortly.", "", "Cheers,", "The Envision Digital Solution Team"].join("\n"),
+  };
+
+  try {
+    if (resend) {
+      await Promise.all([
+        resend.emails.send({
+          from: process.env.RESEND_FROM_EMAIL ?? "noreply@envisionds.com.au",
+          to: "hello@envisionds.com.au",
+          subject: `New lead capture — ${source}`,
+          text: [
+            `Source: ${source}`,
+            `Email: ${email}`,
+          ].join("\n"),
+        }),
+        resend.emails.send({
+          from: process.env.RESEND_FROM_EMAIL ?? "noreply@envisionds.com.au",
+          to: email,
+          subject: confirmation.subject,
+          text: confirmation.body,
+        }),
+      ]);
+    } else {
+      console.log("Lead capture (RESEND_API_KEY not set):", { email, source });
+    }
+
+    return {
+      success: true,
+      message: "We will be in touch shortly.",
+    };
+  } catch (error) {
+    console.error("Failed to send lead capture email:", error);
+    return {
+      success: false,
+      message: "Something went wrong. Please try again.",
+    };
+  }
+}
+
 export async function submitRoadmapCapture(
   _prevState: RoadmapCaptureState,
   formData: FormData,

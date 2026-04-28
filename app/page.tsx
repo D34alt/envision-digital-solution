@@ -6,6 +6,7 @@ import CopyEmail from "@/components/copy-email";
 import RoadmapCapture from "@/components/roadmap-capture";
 import FaqItem from "@/components/faq-item";
 import SiteHeader from "@/components/site-header";
+import LeadCaptureForm from "@/components/lead-capture-form";
 import {
   AlertTriangle,
   ArrowRight,
@@ -565,13 +566,10 @@ export default function Home() {
                   ))}
                 </ul>
                 <div className="mt-8">
-                  <a
-                    href="#contact"
-                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-                  >
-                    Start with a strategy call
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
+                  <LeadCaptureForm
+                    source="Paid Ads Trial"
+                    buttonLabel="Start my trial"
+                  />
                 </div>
               </div>
             </div>

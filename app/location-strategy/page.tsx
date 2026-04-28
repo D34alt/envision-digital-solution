@@ -12,6 +12,7 @@ import {
 
 import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
+import LeadCaptureForm from "@/components/lead-capture-form";
 
 export const metadata: Metadata = {
   title: "Location Strategy | Envision Digital Solution",
@@ -245,13 +246,10 @@ export default function LocationStrategyPage() {
               ))}
             </div>
             <div className="mt-8">
-              <a
-                href="/#contact"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-              >
-                Claim your free snapshot
-                <ArrowRight className="h-4 w-4" />
-              </a>
+              <LeadCaptureForm
+                source="Location Strategy Snapshot"
+                buttonLabel="Claim my free snapshot"
+              />
             </div>
           </div>
         </section>
