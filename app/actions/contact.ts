@@ -136,6 +136,7 @@ export async function submitRoadmapCapture(
       await Promise.all([
         resend.emails.send({
           from: process.env.RESEND_FROM_EMAIL ?? "noreply@envisionds.com.au",
+          replyTo: "hello@envisionds.com.au",
           to: email.trim(),
           subject: "Your 90-Day Marketing Clarity Plan",
           text: [
