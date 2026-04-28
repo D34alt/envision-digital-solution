@@ -86,7 +86,7 @@ export default function SiteHeader() {
       }`}
     >
       <div className="flex items-center gap-3 lg:gap-4">
-        <Link href="/" className="flex shrink-0 items-center gap-3 pr-1">
+        <Link href="/" className="flex shrink-0 items-center gap-3">
           <Image
             src="/branding/envision-logo-light.png"
             alt="Envision Digital Solution"
@@ -97,13 +97,15 @@ export default function SiteHeader() {
           />
         </Link>
 
+        <div aria-hidden className="hidden h-5 w-px shrink-0 bg-white/15 md:block" />
+
         <nav className="hidden min-w-0 overflow-x-auto md:flex md:flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex w-max items-center gap-6 px-3">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative whitespace-nowrap text-sm font-medium text-slate-400 transition-colors duration-200 hover:text-white"
+                className="group relative whitespace-nowrap text-sm font-medium text-slate-200 transition-colors duration-200 hover:text-cyan-300"
               >
                 {item.label}
                 <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
