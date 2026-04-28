@@ -58,11 +58,13 @@ export async function submitLeadCapture(
       ].join("\n"),
     },
     "Location Strategy Snapshot": {
-      subject: "Your free Location Strategy snapshot — Envision Digital Solution",
+      subject: "Your Location Strategy snapshot request — Envision Digital Solution",
       body: [
-        "Thanks for requesting your free Location Strategy snapshot.",
+        "Thanks for your interest in a free Location Strategy snapshot.",
         "",
-        "We will put together a focused look at your local market — where the opportunity is, who your competitors are, and which areas are worth targeting first — and be in touch shortly.",
+        "To make the snapshot actually useful, we need to understand a bit about your business first — what you do, where you are, and what decision you are trying to make.",
+        "",
+        "We will be in touch shortly to set up a quick call so we can get the right picture before putting anything together.",
         "",
         "Cheers,",
         "The Envision Digital Solution Team",
