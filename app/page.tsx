@@ -21,6 +21,8 @@ import {
   Network,
   Rocket,
   Share2,
+  ShieldCheck,
+  Workflow,
 } from "lucide-react";
 
 const frictions = [
@@ -86,6 +88,27 @@ const servicePillars = [
     description:
       "Understand where your best opportunities are before spending money on marketing, opening a new location, or expanding into a new area.",
     href: "/location-strategy",
+  },
+];
+
+const differentiators = [
+  {
+    icon: Compass,
+    title: "Strategy before spending",
+    description:
+      "We understand where your best opportunities are before recommending what to invest. Location data, audience insight, and market context all shape the plan before any budget moves.",
+  },
+  {
+    icon: Workflow,
+    title: "One system, not scattered tactics",
+    description:
+      "Your SEO, paid ads, website, social, and location strategy are planned as one connected system. Every channel reinforces the same message instead of competing for attention.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Plain English, every week",
+    description:
+      "You get clear, honest updates on what is working, what is not, and what is changing. No jargon, no vanity metrics, just a straight read on where things stand and what happens next.",
   },
 ];
 
@@ -342,10 +365,14 @@ export default function Home() {
 
 <section id="services" className="mt-20 scroll-mt-8">
           <div className="max-w-3xl space-y-3">
-            <p className={chapterClass}>What we do</p>
+            <p className={chapterClass}>Act 3: The solution</p>
             <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              Three ways we help businesses grow smarter
+              How we turn these problems into a clear growth plan
             </h2>
+            <p className="text-base leading-relaxed text-slate-400">
+              Everything above is fixable. The difference is building one
+              connected strategy instead of patching individual channels.
+            </p>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {servicePillars.map((service) => {
@@ -408,17 +435,34 @@ export default function Home() {
         </section>
 
         <section className="mt-20">
-          <div className={`${panelClass} p-6 sm:p-8`}>
-            <p className={chapterClass}>Why Envision</p>
-            <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white sm:text-3xl">
-              Stop guessing. Start growing with clarity.
+          <div className="max-w-3xl space-y-3">
+            <p className={chapterClass}>Act 5: Why Envision</p>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              What makes our approach different
             </h2>
-            <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              Most businesses guess where to advertise, who to target, or where
-              to grow next. We combine digital marketing, website strategy, and
-              location insights to help businesses make smarter decisions before
-              they spend.
+            <p className="text-base leading-relaxed text-slate-400">
+              Most agencies sell tactics. We sell clarity. Here is what that
+              looks like in practice.
             </p>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {differentiators.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article key={item.title} className={cardClass}>
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                    {item.description}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
