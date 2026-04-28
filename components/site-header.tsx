@@ -103,9 +103,10 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="whitespace-nowrap text-sm font-medium text-slate-300 transition hover:text-white"
+                className="group relative whitespace-nowrap text-sm font-medium text-slate-400 transition-colors duration-200 hover:text-white"
               >
                 {item.label}
+                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
           </div>
