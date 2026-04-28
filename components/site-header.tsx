@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -19,7 +20,7 @@ const navItems = [
   { href: "/location-strategy", label: "Location Strategy", icon: MapPin },
   { href: "/examples", label: "Examples", icon: BookOpen },
   { href: "/about", label: "About", icon: Info },
-  { href: "/#contact", label: "Contact", icon: Mail },
+  { href: "/contact", label: "Contact", icon: Mail },
 ];
 
 // Minimum vertical scroll delta (px) before we toggle the hide/show state.
@@ -31,6 +32,13 @@ const SCROLL_DELTA = 6;
 const TOP_REVEAL_THRESHOLD = 80;
 
 export default function SiteHeader() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  // On the homepage we keep the contact CTA as an in-page anchor so the
+  // user simply scrolls to the contact section. Anywhere else, the CTA
+  // routes to the dedicated /contact page.
+  const ctaHref = isHome ? "/#contact" : "/contact";
+
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastY = useRef(0);
@@ -114,7 +122,7 @@ export default function SiteHeader() {
         </nav>
 
         <Link
-          href="/#contact"
+          href={ctaHref}
           className="ml-auto inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 md:ml-0"
         >
           <span className="md:hidden">Book</span>

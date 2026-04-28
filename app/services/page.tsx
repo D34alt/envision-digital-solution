@@ -170,7 +170,7 @@ export default function ServicesPage() {
             </p>
             <div className="mt-6">
               <a
-                href="/#contact"
+                href="/contact"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
                 Book a Strategy Call

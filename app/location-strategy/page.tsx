@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import {
   ArrowRight,
-  BarChart2,
   CircleCheckBig,
-  Compass,
-  MapPin,
+  Eye,
+  Map,
+  Megaphone,
   Search,
+  Store,
+  Target,
   TrendingUp,
   Users,
 } from "lucide-react";
@@ -33,13 +35,13 @@ const whoItIsFor = [
 
 const whatWeLookAt = [
   { icon: Users, label: "Customer demographics" },
-  { icon: MapPin, label: "Nearby competitors" },
+  { icon: Store, label: "Nearby competitors" },
   { icon: TrendingUp, label: "Local demand" },
-  { icon: Compass, label: "Suburb and area trends" },
-  { icon: BarChart2, label: "Accessibility and visibility" },
+  { icon: Map, label: "Suburb and area trends" },
+  { icon: Eye, label: "Accessibility and visibility" },
   { icon: Search, label: "Search behaviour" },
-  { icon: BarChart2, label: "Opportunity gaps" },
-  { icon: MapPin, label: "Local marketing potential" },
+  { icon: Target, label: "Opportunity gaps" },
+  { icon: Megaphone, label: "Local marketing potential" },
 ];
 
 const clientReceives = [
@@ -91,7 +93,7 @@ export default function LocationStrategyPage() {
             </p>
             <div className="pt-2">
               <a
-                href="/#contact"
+                href="/contact"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
                 Book a Strategy Call
