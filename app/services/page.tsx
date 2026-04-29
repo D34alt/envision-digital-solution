@@ -16,10 +16,28 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { ServicesIllustration } from "@/components/service-illustrations";
 
+const pageTitle = "Services";
+const pageDescription =
+  "From websites and SEO to paid ads, automation, and location strategy, we help businesses build a stronger digital foundation and make smarter growth decisions.";
+
 export const metadata: Metadata = {
-  title: "Services | Envision Digital Solution",
-  description:
-    "From websites and SEO to paid ads, automation, and location strategy, we help businesses build a stronger digital foundation and make smarter growth decisions.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    type: "website",
+    url: "/services",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
 };
 
 const services = [

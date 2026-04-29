@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import { CircleCheckBig } from "lucide-react";
 import CursorGlow from "@/components/cursor-glow";
@@ -7,9 +8,20 @@ import ContactForm from "@/components/contact-form";
 import SiteFooter from "@/components/site-footer";
 
 export const metadata: Metadata = {
-  title: "Your Next Step | Envision Digital Solution",
+  title: "Your Next Step",
   description:
     "You have got your 90-Day Marketing Clarity Plan. Book a strategy conversation to put it into action.",
+  alternates: {
+    canonical: "/welcome",
+  },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 const planHighlights = [
@@ -52,7 +64,7 @@ export default async function WelcomePage({
 
       <main className="relative z-10 mx-auto w-full max-w-4xl px-5 pb-20 pt-6 sm:px-8 sm:pt-8 lg:px-12">
         <header className="flex items-center justify-center py-4">
-          <a href="/">
+          <Link href="/">
             <Image
               src="/branding/envision-logo-light.png"
               alt="Envision Digital Solution"
@@ -61,7 +73,7 @@ export default async function WelcomePage({
               className="h-8 w-auto sm:h-9"
               priority
             />
-          </a>
+          </Link>
         </header>
 
         <section className="mt-10 text-center sm:mt-14">

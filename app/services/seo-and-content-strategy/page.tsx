@@ -20,10 +20,48 @@ import SiteFooter from "@/components/site-footer";
 import FaqItem from "@/components/faq-item";
 import { SeoIllustration } from "@/components/service-illustrations";
 
+const pageTitle = "SEO and Content Strategy";
+const pageDescription =
+  "We help businesses get found by the right people at the right moment. Local SEO, intent-led content, and a site structure that earns rankings instead of chasing them.";
+const pagePath = "/services/seo-and-content-strategy";
+
 export const metadata: Metadata = {
-  title: "SEO and Content Strategy | Envision Digital Solution",
-  description:
-    "We help businesses get found by the right people at the right moment. Local SEO, intent-led content, and a site structure that earns rankings instead of chasing them.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pagePath,
+  },
+  openGraph: {
+    type: "website",
+    url: pagePath,
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "SEO and Content Strategy",
+  serviceType: "Search engine optimisation and content strategy",
+  description: pageDescription,
+  provider: {
+    "@type": "Organization",
+    name: "Envision Digital Solutions",
+    url: "https://envisiondigitalsolutions.com.au",
+  },
+  areaServed: [
+    { "@type": "City", name: "Melbourne" },
+    { "@type": "AdministrativeArea", name: "Victoria" },
+    { "@type": "Country", name: "Australia" },
+  ],
+  url: `https://envisiondigitalsolutions.com.au${pagePath}`,
 };
 
 const frictions = [
@@ -377,6 +415,10 @@ export default function SeoAndContentStrategyPage() {
 
         <SiteFooter />
       </main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
     </div>
   );
 }

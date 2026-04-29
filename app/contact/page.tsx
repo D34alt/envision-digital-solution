@@ -12,22 +12,29 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { ContactIllustration } from "@/components/service-illustrations";
 
-const siteUrl = "https://envisiondigitalsolutions.com.au";
+const pageTitle = "Contact";
+const pageDescription =
+  "Get in touch with Envision Digital Solution. Book a strategy call to map your highest-value opportunities across digital marketing, websites, and location strategy.";
+const ogDescription =
+  "Book a strategy conversation with Envision Digital Solution. Clear, practical advice on marketing, websites, and location strategy.";
 
 export const metadata: Metadata = {
-  title: "Contact | Envision Digital Solution",
-  description:
-    "Get in touch with Envision Digital Solution. Book a strategy call to map your highest-value opportunities across digital marketing, websites, and location strategy.",
+  title: pageTitle,
+  description: pageDescription,
   alternates: {
-    canonical: `${siteUrl}/contact`,
+    canonical: "/contact",
   },
   openGraph: {
     type: "website",
-    url: `${siteUrl}/contact`,
-    title: "Contact | Envision Digital Solution",
-    description:
-      "Book a strategy conversation with Envision Digital Solution. Clear, practical advice on marketing, websites, and location strategy.",
+    url: "/contact",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: ogDescription,
     locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: ogDescription,
   },
 };
 

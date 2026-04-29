@@ -15,23 +15,27 @@ import RoadmapCapture from "@/components/roadmap-capture";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 
-const siteUrl = "https://envisiondigitalsolutions.com.au";
+const pageTitle = "Free Marketing Resources for Business Owners";
+const pageDescription =
+  "Access free marketing, website, local SEO, paid ads, and location strategy resources to help your business grow with more clarity.";
 
 export const metadata: Metadata = {
-  title: "Free Marketing Resources for Business Owners | Envision Digital Solutions",
-  description:
-    "Access free marketing, website, local SEO, paid ads, and location strategy resources to help your business grow with more clarity.",
+  title: pageTitle,
+  description: pageDescription,
   alternates: {
-    canonical: `${siteUrl}/resources`,
+    canonical: "/resources",
   },
   openGraph: {
     type: "website",
-    url: `${siteUrl}/resources`,
-    title:
-      "Free Marketing Resources for Business Owners | Envision Digital Solutions",
-    description:
-      "Access free marketing, website, local SEO, paid ads, and location strategy resources to help your business grow with more clarity.",
+    url: "/resources",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
     locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
   },
 };
 

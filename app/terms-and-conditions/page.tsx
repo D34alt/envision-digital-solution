@@ -6,10 +6,28 @@ import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 
+const pageTitle = "Terms and Conditions";
+const pageDescription =
+  "Terms and Conditions for the Envision Digital Solutions website. Please read these terms carefully before using our site.";
+
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Envision Digital Solutions",
-  description:
-    "Terms and Conditions for the Envision Digital Solutions website. Please read these terms carefully before using our site.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/terms-and-conditions",
+  },
+  openGraph: {
+    type: "website",
+    url: "/terms-and-conditions",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
 };
 
 const chapterClass = "text-xs font-medium uppercase tracking-[0.14em] text-cyan-300";

@@ -49,6 +49,9 @@ type Props = {
 };
 
 const SWIPE_THRESHOLD = 60;
+// Matches Tailwind's `md` breakpoint, so swipe stays on phones / small tablets
+// in portrait, and is disabled on desktop-sized viewports.
+const MOBILE_MEDIA_QUERY = "(max-width: 767px)";
 
 export default function ExampleStoryModal({
   story,
@@ -57,10 +60,30 @@ export default function ExampleStoryModal({
   onPageChange,
 }: Props) {
   const [page, setPage] = useState(initialPage);
+  const [isMobile, setIsMobile] = useState(false);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
+
+  // Track whether the viewport is mobile-sized so we can enable swipe only
+  // there. Defaults to false on the server / first render to avoid hydration
+  // mismatches; the effect below will flip it on mount if appropriate.
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+
+    const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
+    const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(event.matches);
+    };
+
+    handleChange(mediaQuery);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   // On mount: lock body scroll, listen for Escape and arrow keys,
   // remember the previously-focused element so we can return focus to
@@ -115,12 +138,15 @@ export default function ExampleStoryModal({
   }, []);
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    // Swipe is only enabled on mobile-sized viewports.
+    if (!isMobile) return;
     // Only track primary touch / mouse drags.
     if (event.pointerType === "mouse" && event.button !== 0) return;
     pointerStart.current = { x: event.clientX, y: event.clientY };
   };
 
   const onPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!isMobile) return;
     const start = pointerStart.current;
     pointerStart.current = null;
     if (!start) return;
@@ -217,8 +243,8 @@ export default function ExampleStoryModal({
 
         {/* Body */}
         <div
-          onPointerDown={onPointerDown}
-          onPointerUp={onPointerUp}
+          onPointerDown={isMobile ? onPointerDown : undefined}
+          onPointerUp={isMobile ? onPointerUp : undefined}
           className="flex flex-1 flex-col gap-5 overflow-y-auto px-5 pb-32 pt-5 sm:gap-6 sm:px-8 sm:pb-6 sm:pt-6"
         >
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60">

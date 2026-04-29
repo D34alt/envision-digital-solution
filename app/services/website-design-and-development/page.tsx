@@ -20,11 +20,48 @@ import SiteFooter from "@/components/site-footer";
 import FaqItem from "@/components/faq-item";
 import { WebsiteIllustration } from "@/components/service-illustrations";
 
+const pageTitle = "Website Design and Development";
+const pageDescription =
+  "We design and build websites that load fast, communicate clearly, and turn visitors into enquiries. Modern, mobile-first, conversion-focused websites for Melbourne businesses.";
+const pagePath = "/services/website-design-and-development";
+
 export const metadata: Metadata = {
-  title:
-    "Website Design and Development | Envision Digital Solution",
-  description:
-    "We design and build websites that load fast, communicate clearly, and turn visitors into enquiries. Modern, mobile-first, conversion-focused websites for Melbourne businesses.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pagePath,
+  },
+  openGraph: {
+    type: "website",
+    url: pagePath,
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Website Design and Development",
+  serviceType: "Website design and development",
+  description: pageDescription,
+  provider: {
+    "@type": "Organization",
+    name: "Envision Digital Solutions",
+    url: "https://envisiondigitalsolutions.com.au",
+  },
+  areaServed: [
+    { "@type": "City", name: "Melbourne" },
+    { "@type": "AdministrativeArea", name: "Victoria" },
+    { "@type": "Country", name: "Australia" },
+  ],
+  url: `https://envisiondigitalsolutions.com.au${pagePath}`,
 };
 
 const frictions = [
@@ -373,6 +410,10 @@ export default function WebsiteDesignAndDevelopmentPage() {
 
         <SiteFooter />
       </main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
     </div>
   );
 }

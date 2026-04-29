@@ -6,10 +6,28 @@ import LeadCaptureForm from "@/components/lead-capture-form";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 
+const pageTitle = "Examples";
+const pageDescription =
+  "See how Envision Digital Solutions helps businesses grow through digital marketing, websites, and location strategy. Real-world scenarios for cafes, clinics, and new business owners.";
+
 export const metadata: Metadata = {
-  title: "Examples | Envision Digital Solution",
-  description:
-    "See how Envision Digital Solutions helps businesses grow through digital marketing, websites, and location strategy. Real-world scenarios for cafes, clinics, and new business owners.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/examples",
+  },
+  openGraph: {
+    type: "website",
+    url: "/examples",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
 };
 
 const panelClass =

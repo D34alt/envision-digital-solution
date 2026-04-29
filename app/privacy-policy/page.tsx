@@ -6,10 +6,28 @@ import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 
+const pageTitle = "Privacy Policy";
+const pageDescription =
+  "Privacy Policy for Envision Digital Solutions. Learn how we collect, use, and protect your personal information.";
+
 export const metadata: Metadata = {
-  title: "Privacy Policy | Envision Digital Solutions",
-  description:
-    "Privacy Policy for Envision Digital Solutions. Learn how we collect, use, and protect your personal information.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    type: "website",
+    url: "/privacy-policy",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
 };
 
 const chapterClass = "text-xs font-medium uppercase tracking-[0.14em] text-cyan-300";

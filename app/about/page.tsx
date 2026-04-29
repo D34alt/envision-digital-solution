@@ -6,10 +6,28 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { AboutIllustration } from "@/components/service-illustrations";
 
+const pageTitle = "About";
+const pageDescription =
+  "Envision Digital Solutions helps businesses grow with practical digital strategy, clean websites, marketing systems, and location-based insights.";
+
 export const metadata: Metadata = {
-  title: "About | Envision Digital Solution",
-  description:
-    "Envision Digital Solutions helps businesses grow with practical digital strategy, clean websites, marketing systems, and location-based insights.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    type: "website",
+    url: "/about",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | Envision Digital Solution`,
+    description: pageDescription,
+  },
 };
 
 const values = [
